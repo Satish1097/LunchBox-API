@@ -12,6 +12,9 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.db.models import F
 
 
+# Twilio credentials
+
+
 class SendOTPView(generics.CreateAPIView):
     permission_classes = [AllowAny]
 
