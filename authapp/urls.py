@@ -2,30 +2,56 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
+    # OTP API's
     path("sendotp", SendOTPView.as_view(), name="sendotp"),
     path("verifyotp", VerifyOTPView.as_view(), name="verifyotp"),
-    path("addchild", CreateChildAPIView.as_view(), name="addchild"),
+    # Child API's
+    path("addchild", ChildAPIView.as_view(), name="addchild"),
+    path("updatechild/<int:pk>/", ChildAPIView.as_view(), name="updatechild"),
+    path("deletechild/<int:pk>/", ChildAPIView.as_view(), name="deletechild"),
+    path("viewchild", ChildAPIView.as_view(), name="viewchild"),
+    path("viewchild/<int:pk>/", ChildAPIView.as_view(), name="viewchild"),
+    # Personal Detail API's
     path(
         "userpersonaldetail/<str:mobile>/",
         UserPersonalDetailAPIView.as_view(),
         name="userpersonaldetail",
     ),
+    # User Status API's
     path("checkuser/<str:mobile>/", RetrieveUserAPIView.as_view(), name="checkuser"),
-    path("viewchild", ListChildAPIView.as_view(), name="viewchild"),
-    path("listcuisine", ListCuisineAPIView.as_view(), name="listcuisine"),
-    path("listmenuitem", ListMenuItemAPIView.as_view(), name="listmenuitem"),
+    # Menu Item API's
+    path("listmenuitem", MenuItemAPIView.as_view(), name="listmenuitem"),
     path(
         "retrievemenuitem/<int:pk>/",
-        ListMenuItemAPIView.as_view(),
+        MenuItemAPIView.as_view(),
         name="retrievemenuitem",
     ),
-    path(
-        "updatemenuitem/<int:pk>/", MenuItemCreateView.as_view(), name="updatemenuitem"
-    ),
-    path("createrating/<int:pk>/", CreateRatingAPIView.as_view(), name="creatrating"),
-    path("updatechild/<int:pk>/", UpdateChildAPIView.as_view(), name="updatechild"),
-    path("addcuisine", AddCuisineAPIView.as_view(), name="addcuisine"),
-    path("addcuisine/<int:pk>/", AddCuisineAPIView.as_view(), name="addcuisine"),
-    path("createmenu", MenuItemCreateView.as_view(), name="createmenu"),
-    path("addtocart", AddtoCartAPIView.as_view(), name="addtocart"),
+    path("updatemenuitem/<int:pk>/", MenuItemAPIView.as_view(), name="updatemenuitem"),
+    path("createmenu", MenuItemAPIView.as_view(), name="createmenu"),
+    # Ratings API's
+    path("createrating", RatingAPIView.as_view(), name="creatrating"),
+    path("listrating/<int:pk>/", RatingAPIView.as_view(), name="listrating"),
+    path("deleterating/<int:pk>/", RatingAPIView.as_view(), name="deleterating"),
+    # Cuisine API's
+    path("addcuisine", CuisineAPIView.as_view(), name="addcuisine"),
+    path("deletecuisine/<int:pk>/", CuisineAPIView.as_view(), name="deletecuisine"),
+    path("listcuisine", CuisineAPIView.as_view(), name="listcuisine"),
+    # Cart API's
+    path("addtocart", CartAPIView.as_view(), name="addtocart"),
+    path("cart/", CartAPIView.as_view(), name="cart"),
+    path("cartupdate/<int:pk>/", CartAPIView.as_view(), name="cartupdate"),
+    path("cartretrieve/<int:pk>/", CartAPIView.as_view(), name="cartretrieve"),
+    path("deletecartitem/<int:pk>/", CartAPIView.as_view(), name="deletecartitem"),
+    # Order API's
+    path("order", OrderView.as_view(), name="order"),
+    path("createorder", OrderView.as_view(), name="createorder"),
+    path("updateorder/<str:pk>/", OrderView.as_view(), name="updateorder"),
+    # Plan API's
+    path("createplan", PlanAPIView.as_view(), name="createplan"),
+    path("viewplan", PlanAPIView.as_view(), name="viewplan"),
+    path("retrieveplan/<int:pk>/", PlanAPIView.as_view(), name="retrieveplan"),
+    path("updateplan/<int:pk>/", PlanAPIView.as_view(), name="updateplan"),
+    path("deleteplan/<int:pk>/", PlanAPIView.as_view(), name="deleteplan"),
+    # Payment API
+    path("pay", PaymentAPIView.as_view(), name="pay"),
 ]
