@@ -483,7 +483,6 @@ class PaymentAPIView(GenericAPIView):
         amount = order_amount
         currency = "INR"
         client = razorpay.Client(
-            auth=("rzp_test_XqbYveXlghZd7V", "uBAcP21NLVOZ8Z1Rmd6OqTBJ")
         )
         payment = client.order.create(
             dict(
