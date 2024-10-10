@@ -17,6 +17,11 @@ from rest_framework_simplejwt.tokens import RefreshToken
 import razorpay
 
 
+# Twilio credentials
+account_sid = "AC50443cc90f3b95fddb9b3fb83c30d5a8"
+auth_token = "398e0e33352458c91fc48303b68b4bc1"
+
+
 class SendOTPView(generics.CreateAPIView):
     permission_classes = [AllowAny]
 
@@ -322,14 +327,20 @@ class RatingAPIView(GenericAPIView):
         return Response(serializer.data)
 
     def delete(self, request, **kwargs):
-        instance = self.get_object()
-        print(instance)
-        if instance:
-            instance.delete()
-            return Response(
-                {"success": "Object deleted successfully"},
-                status=status.HTTP_204_NO_CONTENT,
-            )
+        pk = self.kwargs.get("pk")
+        if pk:
+            try:
+                rating = Rating.objects.get(id=pk)
+                rating.delete()
+                return Response(
+                    {"success": "Object deleted successfully"},
+                    status=status.HTTP_204_NO_CONTENT,
+                )
+            except Rating.DoesNotExist:
+                return Response(
+                    {"Error": "Object Not Found"},
+                    status=status.HTTP_404_NOT_FOUND,
+                )
         return Response(status=status.HTTP_404_NOT_FOUND)
 
 
