@@ -17,9 +17,6 @@ from rest_framework_simplejwt.tokens import RefreshToken
 import razorpay
 
 
-# Twilio credentials
-account_sid = "AC50443cc90f3b95fddb9b3fb83c30d5a8"
-auth_token = "398e0e33352458c91fc48303b68b4bc1"
 
 
 class SendOTPView(generics.CreateAPIView):
@@ -486,7 +483,6 @@ class PaymentAPIView(GenericAPIView):
         amount = order_amount
         currency = "INR"
         client = razorpay.Client(
-            auth=("rzp_test_XqbYveXlghZd7V", "uBAcP21NLVOZ8Z1Rmd6OqTBJ")
         )
         payment = client.order.create(
             dict(
