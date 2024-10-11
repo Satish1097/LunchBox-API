@@ -544,3 +544,36 @@ class PlanAPIView(GenericAPIView):
                 status=status.HTTP_204_NO_CONTENT,
             )
         return Response({"message": "Not Found"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class SubscriptionAPIView(GenericAPIView):
+    serializer_class = SubscriptionSerializer
+    queryset = Subscription.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        pk = self.kwargs.get("pk")
+
+        if pk:
+            subscription = Subscription.objects.get(id=pk)
+            serializer = self.get_serializer(subscription)
+            return Response(serializer.data)
+        else:
+            child_id = request.data.get("child_id")
+            subscriptions = Subscription.objects.filter(
+                child__Parent=request.user, child=child_id
+            )
+            serializer = self.get_serializer(subscriptions, many=True)
+            return Response(serializer.data)
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            child = serializer.validated_data.get("child")
+            if child.Parent == request.user:
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            else:
+                return Response(
+                    "Invalid Child data", status=status.HTTP_400_BAD_REQUEST
+                )
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

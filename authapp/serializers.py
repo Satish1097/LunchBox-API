@@ -197,3 +197,26 @@ class PlanSerializer(serializers.ModelSerializer):
     class Meta:
         model = Plan
         fields = "__all__"
+
+
+class SubscriptionSerializer(serializers.ModelSerializer):
+    plan = PlanSerializer(read_only=True)
+    plan_id = serializers.PrimaryKeyRelatedField(
+        queryset=Plan.objects.all(), write_only=True
+    )
+
+    class Meta:
+        model = Subscription
+        fields = ["child", "plan", "plan_id", "start_date", "end_date"]
+
+        extra_kwargs = {
+            "start_date": {"read_only": True},
+            "end_date": {"read_only": True},
+        }
+
+    def create(self, validated_data):
+        plan_id = validated_data.pop("plan_id")
+
+        print(plan_id)
+        subscription = Subscription.objects.create(plan=plan_id, **validated_data)
+        return subscription

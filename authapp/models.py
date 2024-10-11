@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser, UserManager, Permission
 from django.utils import timezone
 from django.core.validators import MaxValueValidator, MinValueValidator
 import uuid
+from datetime import timedelta
 
 
 class CustomUserManager(UserManager):
@@ -98,7 +99,7 @@ class Child(models.Model):
     Child_Image = models.ImageField(upload_to="ChildImage/", null=True)
 
     def __str__(self):
-        return self.Full_Name
+        return f"{self.Full_Name} - {self.id}"
 
 
 class OTP(models.Model):
@@ -183,7 +184,7 @@ class Order(models.Model):
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name="items")
     menu_item = models.ForeignKey(MenuItem, on_delete=models.DO_NOTHING)
-    Item_Quantity = models.PositiveBigIntegerField()
+    Item_Quantity = models.PositiveBigIntegerField(default=1)
 
     def __str__(self):
         return self.order.child.Full_Name
@@ -201,7 +202,7 @@ class Plan(models.Model):
     Plan_Type = models.CharField(max_length=10, choices=PLAN_TYPE)
 
     def __str__(self):
-        return self.Plan_Type
+        return f"{self.Plan_Type} - {self.id}"
 
 
 class Subscription(models.Model):
@@ -209,9 +210,20 @@ class Subscription(models.Model):
         Child, on_delete=models.CASCADE, related_name="subscriptions"
     )
     plan = models.ForeignKey(Plan, on_delete=models.CASCADE)
-    start_date = models.DateTimeField(auto_now_add=True)
-    end_date = models.DateTimeField(auto_now=True)
+    start_date = models.DateTimeField(blank=True, null=True)
+    end_date = models.DateTimeField(blank=True, null=True)
     is_active = models.BooleanField(default=True)
+
+    def save(self, *args, **kwargs):
+        if not self.start_date:
+            self.start_date = timezone.now()
+
+        if not self.end_date:
+            if self.plan.Plan_Type == "Monthly":
+                self.end_date = self.start_date + timedelta(days=30)
+            else:
+                self.end_date = self.start_date + timedelta(days=7)
+        super(Subscription, self).save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.child.Full_Name} - {self.plan.Plan_Type} Subscription"

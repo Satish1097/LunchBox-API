@@ -52,6 +52,11 @@ urlpatterns = [
     path("retrieveplan/<int:pk>/", PlanAPIView.as_view(), name="retrieveplan"),
     path("updateplan/<int:pk>/", PlanAPIView.as_view(), name="updateplan"),
     path("deleteplan/<int:pk>/", PlanAPIView.as_view(), name="deleteplan"),
-    # Payment API
+    # Payment API's
     path("pay", PaymentAPIView.as_view(), name="pay"),
+    # Subscription API's
+    path("listsubscription", SubscriptionAPIView.as_view(), name="listsubscription"),
+    path(
+        "createsubscription", SubscriptionAPIView.as_view(), name="createsubscription"
+    ),
 ]

@@ -28,6 +28,8 @@ INSTALLED_APPS = [
     "authapp",
     "rest_framework",
     "rest_framework_simplejwt",
+    "django_celery_beat",
+    "django_celery_results",
 ]
 
 AUTH_USER_MODEL = "authapp.User"
@@ -101,7 +103,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Asia/Kolkata"
 
 USE_I18N = True
 
@@ -137,3 +139,31 @@ SIMPLE_JWT = {
     "SLIDING_TOKEN_REFRESH_LIFETIME_LATE_USER": timedelta(days=1),
     "SLIDING_TOKEN_LIFETIME_LATE_USER": timedelta(days=30),
 }
+
+# /*===========Celery Config==============*/
+
+CELERY_BROKER_URL = "redis://localhost:6379/0"
+CELERY_ACCEPT_CONTENT = ["application/json"]
+CELERY_RESULT_SERIALIZER = "json"
+CELERY_TASK_SERIALIZER = "json"
+CELERY_TIMEZONE = "Asia/Kolkata"
+
+CELERY_RESULT_BACKEND = "redis"
+CELERY_CACHE_BACKEND = "django-cache"
+CELERY_CACHE_BACKEND = "default"
+CELERY_IMPORTS = ("app1.tasks",)
+
+
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
+
+
+# BROKER_URL = "amqp://guest:guest@localhost:5672/"
+
+CELERY_BEAT_SHEDULAR = "django_celery_beat.schedulers.DatabaseSchedulers"
+
+# CELERY_BEAT_SCHEDULE = {
+#     "every 2nd day of the month": {
+#         "task": "app1.tasks.run_parallel_salary_processing",
+#         "schedule": 10.0,
+#     }
+# }
