@@ -220,3 +220,27 @@ class SubscriptionSerializer(serializers.ModelSerializer):
         print(plan_id)
         subscription = Subscription.objects.create(plan=plan_id, **validated_data)
         return subscription
+
+
+class TransactionDetailSerializer(serializers.ModelSerializer):
+    subscription = SubscriptionSerializer(read_only=True)
+    subscription_id = serializers.PrimaryKeyRelatedField(
+        queryset=Subscription.objects.all(), write_only=True
+    )
+    order = OrderSerializer(read_only=True)
+    order_id = serializers.PrimaryKeyRelatedField(
+        queryset=Order.objects.all(), write_only=True
+    )
+
+    class Meta:
+        model = TransactionDetail
+        fields = [
+            "Transaction_id",
+            "order",
+            "order_id",
+            "subscription_id",
+            "subscription",
+            "Payment_id",
+            "payment_status",
+            "child",
+        ]

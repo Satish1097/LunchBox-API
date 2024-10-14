@@ -59,4 +59,7 @@ urlpatterns = [
     path(
         "createsubscription", SubscriptionAPIView.as_view(), name="createsubscription"
     ),
+    # Transaction Detail
+    path("viewtransaction", TransactionDetailAPIView.as_view(), name="viewtransaction"),
+    path("handlePayment", PaymentHandlerView.as_view(), name="handlepayment"),
 ]

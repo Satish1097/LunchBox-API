@@ -1,6 +1,7 @@
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
+from django.conf import settings
 import pyotp
 from twilio.rest import Client
 from .models import *
@@ -15,8 +16,12 @@ from rest_framework.permissions import (
 )
 from rest_framework_simplejwt.tokens import RefreshToken
 import razorpay
+from dotenv import load_dotenv
+import os
+from django.views.decorators.csrf import csrf_exempt
 
 
+load_dotenv()
 
 
 class SendOTPView(generics.CreateAPIView):
@@ -31,19 +36,24 @@ class SendOTPView(generics.CreateAPIView):
         otp = totp.now()
 
         # Send the OTP using Twilio
-        client = Client(account_sid, auth_token)
-        message = client.messages.create(
-            body=f"Your OTP is {otp}",
-            from_="+1 775 235 0495",  # Twilio phone number bought using trial amount
-            to=f"+91{mobile_number}",
-        )
+        try:
+            client = Client(os.getenv("account_sid"), os.getenv("auth_token"))
+            message = client.messages.create(
+                body=f"Your OTP is {otp}",
+                from_="+12029307231",  # Twilio phone number bought using trial amount
+                to=f"+91{mobile_number}",
+            )
 
-        # Save the secret key for verification later
-        otp_record, _ = OTP.objects.get_or_create(mobile=mobile_number)
-        otp_record.secret_key = secret_key
-        otp_record.is_used = False
-        otp_record.save()
-        return Response({"message": "OTP sent successfully"}, status=status.HTTP_200_OK)
+            # Save the secret key for verification later
+            otp_record, _ = OTP.objects.get_or_create(mobile=mobile_number)
+            otp_record.secret_key = secret_key
+            otp_record.is_used = False
+            otp_record.save()
+            return Response(
+                {"message": "OTP sent successfully"}, status=status.HTTP_200_OK
+            )
+        except:
+            return Response("error")
 
 
 class VerifyOTPView(generics.CreateAPIView):
@@ -469,31 +479,6 @@ class OrderView(GenericAPIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class PaymentAPIView(GenericAPIView):
-    serializer_class = PaymentSerializer
-
-    def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-
-        order_id = serializer.validated_data["order_id"]
-        order_amount = serializer.validated_data["order_amount"]
-        order = Order.objects.get(orderid=order_id)
-
-        amount = order_amount
-        currency = "INR"
-        client = razorpay.Client(
-        )
-        payment = client.order.create(
-            dict(
-                amount=amount * 100,  # Amount in paise
-                currency=currency,
-                payment_capture="1",
-            )
-        )
-        return Response("payment_Done")
-
-
 class PlanAPIView(GenericAPIView):
     serializer_class = PlanSerializer
     queryset = Plan.objects.all()
@@ -573,3 +558,101 @@ class SubscriptionAPIView(GenericAPIView):
                     "Invalid Child data", status=status.HTTP_400_BAD_REQUEST
                 )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class PaymentAPIView(GenericAPIView):
+    def post(self, request, *args, **kwargs):
+
+        # Get order_id, subscription_id, and order_amount from the request data
+        order_id = request.data.get("order_id")
+        subscription_id = request.data.get("subscription_id")
+        order_amount = request.data.get("order_amount")
+        order_amount = int(order_amount)
+        child_id = request.data.get("child_id")
+        child = Child.objects.get(id=child_id)
+
+        client = razorpay.Client(auth=(os.getenv("key_id"), os.getenv("key_secret")))
+
+        # Check whether it's an order payment or a subscription payment
+        if order_id:
+            # Handle Order payment
+            order = Order.objects.get(orderid=order_id)
+            amount = int(order_amount)
+        elif subscription_id:
+            # Handle Subscription payment
+            subscription = Subscription.objects.get(id=subscription_id)
+            amount = order_amount
+        else:
+            return Response(
+                {"error": "Either order_id or subscription_id must be provided"},
+                status=400,
+            )
+
+        # Create Razorpay order
+        payment = client.order.create(
+            dict(
+                amount=int(amount * 100),  # Amount in paise
+                currency="INR",
+                payment_capture="1",
+            )
+        )
+        # Create a TransactionDetail entry in the database
+        transaction = TransactionDetail.objects.create(
+            order_id=order if order_id else None,
+            subscription_id=subscription if subscription_id else None,
+            transaction_amount=amount,
+            payment_status="Pending",
+            child=child,
+        )
+
+        # Return the payment details
+        return Response(
+            {
+                "payment_id": payment["id"],
+                "order_id": order_id if order_id else None,
+                "subscription_id": subscription_id if subscription_id else None,
+                "transaction_id": transaction.Transaction_id,
+                "amount": amount,
+                "currency": "INR",
+            }
+        )
+
+
+class PaymentHandlerView(GenericAPIView):
+    @csrf_exempt
+    def post(self, request):
+        payment_id = request.data.get("payment_id")
+        order_id = request.data.get("order_id")
+        signature = request.data.get("razorpay_signature")
+
+        # Validate the signature to confirm the payment is authentic
+        client = razorpay.Client(auth=(os.getenv("key_id"), os.getenv("key_secret")))
+
+        params_dict = {
+            "razorpay_order_id": order_id,
+            "razorpay_payment_id": payment_id,
+            "razorpay_signature": signature,
+        }
+        try:
+            # Verifying signature
+            client.utility.verify_payment_signature(params_dict)
+            # If verification succeeds, you can mark the payment as successful in your database
+            return Response({"status": "Payment successful"}, status=status.HTTP_200_OK)
+        except razorpay.errors.SignatureVerificationError:
+            # Handle invalid signature verification
+            return Response(
+                {"error": "Payment verification failed"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+
+class TransactionDetailAPIView(GenericAPIView):
+    serializer_class = TransactionDetailSerializer
+    queryset = TransactionDetail.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        child_id = request.data.get("child_id")
+        child = Child.objects.get(id=child_id)
+        transaction = TransactionDetail.objects.get(child=child)
+        serializer = self.get_serializer(transaction)
+        return Response(serializer.data)

@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.core.validators import MaxValueValidator, MinValueValidator
 import uuid
 from datetime import timedelta
+import datetime
 
 
 class CustomUserManager(UserManager):
@@ -167,12 +168,19 @@ class Order(models.Model):
         ("Completed", "Completed"),
         ("Cancelled", "Cancelled"),
     )
+    PaymentStatus_Choice = (
+        ("Pending", "Pending"),
+        ("Failed", "Failed"),
+        ("Done", "Done"),
+    )
     orderid = models.CharField(
         max_length=100, default=uuid.uuid4, editable=False, primary_key=True
     )
     child = models.ForeignKey(Child, on_delete=models.CASCADE)
     created_on = models.DateTimeField(auto_now_add=True)
-    payment_status = models.BooleanField(default=False)
+    payment_status = models.CharField(
+        max_length=10, choices=PaymentStatus_Choice, default="Pending"
+    )
     order_status = models.CharField(
         max_length=20, choices=Status_Choice, default="Pending"
     )
@@ -206,24 +214,79 @@ class Plan(models.Model):
 
 
 class Subscription(models.Model):
+    PaymentStatus_Choice = (
+        ("Pending", "Pending"),
+        ("Failed", "Failed"),
+        ("Done", "Done"),
+    )
     child = models.ForeignKey(
         Child, on_delete=models.CASCADE, related_name="subscriptions"
     )
     plan = models.ForeignKey(Plan, on_delete=models.CASCADE)
     start_date = models.DateTimeField(blank=True, null=True)
     end_date = models.DateTimeField(blank=True, null=True)
+    payment_status = models.CharField(
+        max_length=10, choices=PaymentStatus_Choice, default="Pending"
+    )
     is_active = models.BooleanField(default=True)
 
     def save(self, *args, **kwargs):
+        # Set the start date 1 day next to subscription
         if not self.start_date:
-            self.start_date = timezone.now()
+            self.start_date = timezone.now() + timedelta(days=1)  # Starts from tomorrow
 
+        # End date is calculated based on start date and sunday is also excluded
         if not self.end_date:
             if self.plan.Plan_Type == "Monthly":
-                self.end_date = self.start_date + timedelta(days=30)
+                # Calculate the end date excluding Sundays for 30 active days
+                self.end_date = self.calculate_end_date_excluding_sundays(
+                    self.start_date, 30
+                )
             else:
+                # Weekly plan, just add 7 days
                 self.end_date = self.start_date + timedelta(days=7)
+
+        # Save the instance
         super(Subscription, self).save(*args, **kwargs)
+
+    def calculate_end_date_excluding_sundays(self, start_date, active_days_needed):
+        current_date = start_date
+        active_days = 0
+
+        # Loop through each day, skipping Sundays, until the required active days are counted
+        while active_days < active_days_needed:
+            if (
+                current_date.weekday() != 6
+            ):  # 6 represents Sunday day starts from monday that is 0.
+                active_days += 1
+            current_date += timedelta(days=1)
+        return current_date
 
     def __str__(self):
         return f"{self.child.Full_Name} - {self.plan.Plan_Type} Subscription"
+
+
+class TransactionDetail(models.Model):
+    Status_Choices = (
+        ("Done", "Done"),
+        ("Failed", "Failed"),
+        ("Pending", "Pending"),
+    )
+    order_id = models.ForeignKey(
+        Order, on_delete=models.DO_NOTHING, null=True, blank=True
+    )
+    subscription_id = models.ForeignKey(
+        Subscription, on_delete=models.DO_NOTHING, blank=True, null=True
+    )
+    Transaction_id = models.CharField(
+        max_length=100, default=uuid.uuid4, editable=False, primary_key=True
+    )
+    Payment_id = models.CharField(max_length=100, unique=True, null=True)
+    transaction_amount = models.DecimalField(max_digits=10, decimal_places=3)
+    payment_status = models.CharField(
+        max_length=10, choices=Status_Choices, default="Pending"
+    )
+    child = models.ForeignKey(Child, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return f"{self.child.Full_Name} Transaction_id {self.Transaction_id}"
