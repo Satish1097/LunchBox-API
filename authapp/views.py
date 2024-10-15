@@ -21,7 +21,6 @@ import os
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework_simplejwt.tokens import RefreshToken
 
-
 load_dotenv()
 
 
@@ -41,10 +40,11 @@ class SendOTPView(generics.CreateAPIView):
             client = Client(os.getenv("account_sid"), os.getenv("auth_token"))
             message = client.messages.create(
                 body=f"Your OTP is {otp}",
-                from_="+12029307231",  # Twilio phone number bought using trial amount
+                from_=os.getenv(
+                    "Twilio_Number"
+                ),  # Twilio phone number bought using trial amount
                 to=f"+91{mobile_number}",
             )
-
             # Save the secret key for verification later
             otp_record, _ = OTP.objects.get_or_create(mobile=mobile_number)
             otp_record.secret_key = secret_key
@@ -131,7 +131,11 @@ class UserPersonalDetailAPIView(GenericAPIView):
             serializer.save()
             instance.is_profile_completed = True
             instance.save()
-            return Response({"success": "Details added successfully"})
+            serializer = self.get_serializer(instance)
+            return Response(
+                {"data": serializer.data, "message": "Record Updated"},
+                status=status.HTTP_200_OK,
+            )
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -168,10 +172,16 @@ class ChildAPIView(GenericAPIView):
     def get(self, request, *args, **kwargs):
         pk = self.kwargs.get("pk")
         user = request.user
+        print(user)
         if pk and user is not None:
-            child = Child.objects.get(id=pk)
-            serializer = self.get_serializer(child)
-            return Response(serializer.data)
+            try:
+                child = Child.objects.get(id=pk, Parent=user)
+                serializer = self.get_serializer(child)
+                return Response(serializer.data)
+            except Child.DoesNotExist:
+                return Response(
+                    "Record does not exist", status=status.HTTP_404_NOT_FOUND
+                )
         else:
             children = Child.objects.filter(Parent=user.id)
             serializer = self.get_serializer(children, many=True)
@@ -183,7 +193,11 @@ class ChildAPIView(GenericAPIView):
         if serializer.is_valid():
             if instance.Parent == request.user:
                 serializer.save()
-                return Response({"success": "Details added successfully"})
+                return Response(
+                    {"data": serializer.data, "success": "Details added successfully"}
+                )
+            else:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -191,15 +205,17 @@ class ChildAPIView(GenericAPIView):
         user = request.user
         instance = self.get_object()
         if instance.Parent == user:
+            serializer = self.get_serializer(instance)
             instance.delete()
             return Response(
-                {"success": "Object deleted successfully"},
+                {"data": serializer.data, "success": "Object deleted successfully"},
                 status=status.HTTP_204_NO_CONTENT,
             )
         return Response({"message": "Not Found"}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class CuisineAPIView(GenericAPIView):
+    queryset = Cuisine.objects.all()
     serializer_class = CuisineSerializer
 
     def get_permissions(self):
@@ -209,20 +225,34 @@ class CuisineAPIView(GenericAPIView):
             return [IsAdminUser()]
 
     def get(self, request, *args, **kwargs):
-        cuisines = Cuisine.objects.all()
-        serializer = self.get_serializer(cuisines, many=True)
-        return Response(serializer.data)
+        pk = self.kwargs.get("pk")
+        if pk:
+            try:
+                menuitems = Cuisine.objects.get(id=pk)
+                serializer = self.get_serializer(menuitems)
+                return Response(serializer.data)
+            except Cuisine.DoesNotExist:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+        else:
+            menuitems = Cuisine.objects.all()
+            serializer = self.get_serializer(menuitems, many=True)
+            return Response(serializer.data)
 
     def post(self, request):
         cuisine_data = request.data
-        serializer = self.serializer_class(data=cuisine_data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(
-                {"data": cuisine_data, "message": f"Cuisine has been added"},
-                status=status.HTTP_201_CREATED,
-            )
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        cuisine = cuisine_data.get("name")
+        try:
+            cuisine_name = Cuisine.objects.get(name=cuisine)
+            return Response("Cuisine With Same Name Already Exists")
+        except Cuisine.DoesNotExist:
+            serializer = self.serializer_class(data=cuisine_data)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+                return Response(
+                    {"data": cuisine_data, "message": f"Cuisine has been added"},
+                    status=status.HTTP_201_CREATED,
+                )
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, **kwargs):
         instance = self.get_object()
@@ -231,23 +261,6 @@ class CuisineAPIView(GenericAPIView):
             {"success": "Object deleted successfully"},
             status=status.HTTP_204_NO_CONTENT,
         )
-
-    queryset = MenuItem.objects.all()
-    serializer_class = MenuItemSerializer
-
-    def get(self, request, *args, **kwargs):
-        pk = self.kwargs.get("pk")
-        if pk:
-            try:
-                menuitems = MenuItem.objects.get(id=pk)
-                serializer = self.get_serializer(menuitems)
-                return Response(serializer.data)
-            except MenuItem.DoesNotExist:
-                return Response(status=status.HTTP_400_BAD_REQUEST)
-        else:
-            menuitems = MenuItem.objects.all()
-            serializer = self.get_serializer(menuitems, many=True)
-            return Response(serializer.data)
 
 
 class MenuItemAPIView(GenericAPIView):
@@ -281,16 +294,15 @@ class MenuItemAPIView(GenericAPIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def put(self, request, **kwargs):
-        return self.update(request, **kwargs)
-
-    def update(self, request, **kwargs):
+    def put(self, request, *args, **kwargs):
         instance = self.get_object()
         serializer = self.get_serializer(instance, data=request.data, partial=True)
 
         if serializer.is_valid():
             serializer.save()
-            return Response({"success": "Details Updated successfully"})
+            return Response(
+                {"data": serializer.data, "success": "Details Updated successfully"}
+            )
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -321,7 +333,7 @@ class RatingAPIView(GenericAPIView):
                 serializer.save(user=request.user, menu_item_id=menu_id)
                 ratings = serializer.data
                 return Response(
-                    {"data": ratings, "message": f"rating added successfully"},
+                    {"data": ratings, "message": "rating added successfully"},
                     status=status.HTTP_201_CREATED,
                 )
 
@@ -329,10 +341,13 @@ class RatingAPIView(GenericAPIView):
 
     def get(self, request, *args, **kwargs):
         pk = self.kwargs.get("pk")
-        menuitem = MenuItem.objects.get(id=pk)
-        ratings = Rating.objects.filter(menu_item=menuitem)
-        serializer = self.serializer_class(ratings, many=True)
-        return Response(serializer.data)
+        try:
+            menuitem = MenuItem.objects.get(id=pk)
+            ratings = Rating.objects.filter(menu_item=menuitem)
+            serializer = self.serializer_class(ratings, many=True)
+            return Response(serializer.data)
+        except MenuItem.DoesNotExist:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, **kwargs):
         pk = self.kwargs.get("pk")
@@ -347,7 +362,7 @@ class RatingAPIView(GenericAPIView):
             except Rating.DoesNotExist:
                 return Response(
                     {"Error": "Object Not Found"},
-                    status=status.HTTP_404_NOT_FOUND,
+                    status=status.HTTP_400_BAD_REQUEST,
                 )
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -364,8 +379,7 @@ class CartAPIView(GenericAPIView):
         if serializer.is_valid():
             try:
                 cartitem = CartItem.objects.get(menu_item=menu_id, child=child)
-                if cartitem:
-                    return Response("Items already in Cart")
+                return Response("Items already in Cart")
             except CartItem.DoesNotExist:
                 serializer.save()
                 Cart_Item = serializer.data
@@ -413,7 +427,9 @@ class CartAPIView(GenericAPIView):
 
         if serializer.is_valid():
             serializer.save()
-            return Response({"success": "Details Updated successfully"})
+            return Response(
+                {"data": serializer.data, "success": "Details Updated successfully"}
+            )
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -421,9 +437,10 @@ class CartAPIView(GenericAPIView):
         user = request.user
         instance = self.get_object()
         if instance.child.Parent == user:
+            serializer = self.get_serializer(instance)
             instance.delete()
             return Response(
-                {"success": "Object deleted successfully"},
+                {"data": serializer.data, "success": "Object deleted successfully"},
                 status=status.HTTP_204_NO_CONTENT,
             )
         return Response({"message": "Not Found"}, status=status.HTTP_400_BAD_REQUEST)
@@ -433,12 +450,21 @@ class OrderView(GenericAPIView):
     serializer_class = OrderSerializer
     queryset = Order.objects.all()
 
+    def get_permissions(self):
+        if self.request.method == "PUT":
+            return [IsAdminUser()]
+        else:
+            return [IsAuthenticated()]
+
     def get(self, request, *args, **kwargs):
         pk = self.kwargs.get("pk")
         if pk:
-            order = Order.objects.get(orderid=pk)
-            serializer = self.get_serializer(order)
-            return Response(serializer.data)
+            try:
+                order = Order.objects.get(orderid=pk)
+                serializer = self.get_serializer(order)
+                return Response(serializer.data)
+            except Order.DoesNotExist:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
         else:
             child = request.data
             child_id = child.get("child_id")
@@ -449,25 +475,28 @@ class OrderView(GenericAPIView):
     def post(self, request, *args, **kwargs):
         child = request.data
         child_id = child.get("child_id")
-        child = Child.objects.get(id=child_id)
-        print(child_id)
-        cart_item = CartItem.objects.filter(child_id=child_id).exists()
-        print(cart_item)
-        if cart_item is True:
-            with transaction.atomic():
-                order = Order.objects.create(child=child)
-                cartitems = CartItem.objects.filter(child_id=child_id)
-                for item in cartitems:
-                    OrderItem.objects.create(
-                        order=order,
-                        menu_item=item.menu_item,
-                        Item_Quantity=item.Item_Quantity,
+        try:
+            child = Child.objects.get(id=child_id)
+            cart_item = CartItem.objects.filter(child_id=child_id).exists()
+            if cart_item is True:
+                with transaction.atomic():
+                    order = Order.objects.create(child=child)
+                    cartitems = CartItem.objects.filter(child_id=child_id)
+                    for item in cartitems:
+                        OrderItem.objects.create(
+                            order=order,
+                            menu_item=item.menu_item,
+                            Item_Quantity=item.Item_Quantity,
+                        )
+                        item.delete()
+                    order_serializer = OrderSerializer(order)
+                    return Response(
+                        order_serializer.data, status=status.HTTP_201_CREATED
                     )
-                    item.delete()
-                order_serializer = OrderSerializer(order)
-                return Response(order_serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            return Response("Your Cart is Empty")
+            else:
+                return Response("Your Cart is Empty")
+        except Child.DoesNotExist:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request, **kwargs):
         instance = self.get_object()
@@ -493,9 +522,12 @@ class PlanAPIView(GenericAPIView):
     def get(self, request, *args, **kwargs):
         pk = self.kwargs.get("pk")
         if pk is not None:
-            plan = Plan.objects.get(id=pk)
-            serializer = self.get_serializer(plan)
-            return Response(serializer.data)
+            try:
+                plan = Plan.objects.get(id=pk)
+                serializer = self.get_serializer(plan)
+                return Response(serializer.data)
+            except Plan.DoesNotExist:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
         else:
             plans = Plan.objects.all()
             serializer = self.get_serializer(plans, many=True)
@@ -513,16 +545,19 @@ class PlanAPIView(GenericAPIView):
         serializer = self.get_serializer(instance, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
-            return Response({"success": "Details updated successfully"})
+            return Response(
+                {"data": serializer.data, "success": "Details updated successfully"}
+            )
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, **kwargs):
         instance = self.get_object()
         if instance:
+            serializer = self.get_serializer(instance)
             instance.delete()
             return Response(
-                {"success": "Object deleted successfully"},
+                {"data": serializer.data, "success": "Object deleted successfully"},
                 status=status.HTTP_204_NO_CONTENT,
             )
         return Response({"message": "Not Found"}, status=status.HTTP_400_BAD_REQUEST)
@@ -536,9 +571,12 @@ class SubscriptionAPIView(GenericAPIView):
         pk = self.kwargs.get("pk")
 
         if pk:
-            subscription = Subscription.objects.get(id=pk)
-            serializer = self.get_serializer(subscription)
-            return Response(serializer.data)
+            try:
+                subscription = Subscription.objects.get(id=pk)
+                serializer = self.get_serializer(subscription)
+                return Response(serializer.data)
+            except Subscription.DoesNotExist:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
         else:
             child_id = request.data.get("child_id")
             subscriptions = Subscription.objects.filter(
@@ -569,9 +607,6 @@ class PaymentAPIView(GenericAPIView):
         subscription_id = request.data.get("subscription_id")
         order_amount = request.data.get("order_amount")
         order_amount = int(order_amount)
-        child_id = request.data.get("child_id")
-        child = Child.objects.get(id=child_id)
-
         client = razorpay.Client(auth=(os.getenv("key_id"), os.getenv("key_secret")))
 
         # Check whether it's an order payment or a subscription payment
@@ -580,13 +615,15 @@ class PaymentAPIView(GenericAPIView):
                 order = Order.objects.get(orderid=order_id)
                 amount = int(order_amount)
             except Order.DoesNotExist:
-                return Response("Invalid OrderId")
+                return Response("Invalid OrderId", status=status.HTTP_400_BAD_REQUEST)
         elif subscription_id:
             try:
                 subscription = Subscription.objects.get(id=subscription_id)
                 amount = int(order_amount)
             except Subscription.DoesNotExist:
-                return Response("Invalid Subscription Id")
+                return Response(
+                    "Invalid Subscription Id", status=status.HTTP_400_BAD_REQUEST
+                )
         else:
             return Response(
                 {"error": "Either order_id or subscription_id must be provided"},
@@ -603,14 +640,20 @@ class PaymentAPIView(GenericAPIView):
         )
         razorpay_order_id = payment["id"]
         # Create a TransactionDetail entry in the database
-        transaction = TransactionDetail.objects.create(
-            order_id=order if order_id else None,
-            subscription_id=subscription if subscription_id else None,
-            transaction_amount=amount,
-            Payment_order_id=razorpay_order_id,
-            payment_status="Pending",
-            child=child,
-        )
+        if order_id:
+            transaction = TransactionDetail.objects.create(
+                order_id=order,
+                transaction_amount=amount,
+                Payment_order_id=razorpay_order_id,
+                payment_status="Pending",
+            )
+        else:
+            transaction = TransactionDetail.objects.create(
+                subscription_id=subscription,
+                transaction_amount=amount,
+                Payment_order_id=razorpay_order_id,
+                payment_status="Pending",
+            )
 
         # Return the payment details
         return Response(
@@ -695,10 +738,13 @@ class TransactionDetailAPIView(GenericAPIView):
 
     def get(self, request, *args, **kwargs):
         child_id = request.data.get("child_id")
-        child = Child.objects.get(id=child_id)
-        transaction = TransactionDetail.objects.filter(child=child)
-        serializer = self.get_serializer(transaction, many=True)
-        return Response(serializer.data)
+        try:
+            child = Child.objects.get(id=child_id)
+            transaction = TransactionDetail.objects.filter(child=child)
+            serializer = self.get_serializer(transaction, many=True)
+            return Response(serializer.data)
+        except Child.DoesNotExist:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 class LogoutAPIView(GenericAPIView):

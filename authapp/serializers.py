@@ -66,7 +66,7 @@ class ChildSerializer(serializers.ModelSerializer):
 class CuisineSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cuisine
-        fields = "__all__"
+        fields = ["id", "name"]
 
 
 class RatingSerializer(serializers.ModelSerializer):
