@@ -1,0 +1,1736 @@
+{
+    "info": {
+        "_postman_id": "102c9fc0-4617-4100-9fc8-672b48198670",
+        "name": "LunchBox",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "_exporter_id": "36720141",
+        "_collection_link": "https://ecovegecommerce.postman.co/workspace/InstaBackend-API~b976b54b-78e7-4c56-a9a6-a583b49baa5d/collection/36720141-102c9fc0-4617-4100-9fc8-672b48198670?action=share&source=collection_link&creator=36720141"
+    },
+    "item": [
+        {
+            "name": "OTP",
+            "item": [
+                {
+                    "name": "Send OTP",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "mobile_number",
+                                    "value": "7762019670",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/sendotp",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "sendotp"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Verify OTP",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "mobile_number",
+                                    "value": "7762019670",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "otp",
+                                    "value": "223173",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/verifyotp",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "verifyotp"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Personal Detail",
+            "item": [
+                {
+                    "name": "Add Personal Details",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzNTU2MjIyLCJpYXQiOjE3MjgzNzIyMjIsImp0aSI6IjczMjczNDc5MGVkOTRkYjE5MWFiNDU1YzA0MWFhMDExIiwidXNlcl9pZCI6Mn0.roFcNBryL0GGjQSAsKmWRQppDQi32MA-jPtDzHq4MZg",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "name",
+                                    "value": "Satish Kumar 1",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "email",
+                                    "value": "dataplayer1097@gmail.com",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/userpersonaldetail/7762019670/",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "userpersonaldetail",
+                                "7762019670",
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Child",
+            "item": [
+                {
+                    "name": "Add Child",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMzEzNzUxLCJpYXQiOjE3MjgxMjk3NTEsImp0aSI6IjQyMGY2NDgyNWZjNDQ5ZWQ4MWJlODc2ZmNiOWI3NzRhIiwidXNlcl9pZCI6Mn0.pLLVdzwIyVjSKraJT1nbqWdUTPmezZHQsPuA6zOAnzI",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "Full_Name",
+                                    "value": "child4",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "Date_of_Birth",
+                                    "value": "2002-05-01",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "Gender",
+                                    "value": "male",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "school_name_id",
+                                    "value": "1",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "school_area_id",
+                                    "value": "3",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "Class",
+                                    "value": "12th",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "Division",
+                                    "value": "C",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/addchild",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "addchild"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "List Child",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMzEzNzUxLCJpYXQiOjE3MjgxMjk3NTEsImp0aSI6IjQyMGY2NDgyNWZjNDQ5ZWQ4MWJlODc2ZmNiOWI3NzRhIiwidXNlcl9pZCI6Mn0.pLLVdzwIyVjSKraJT1nbqWdUTPmezZHQsPuA6zOAnzI",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/viewchild",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "viewchild"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Update Child",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMTQ0NzI0LCJpYXQiOjE3Mjc5NjA3MjQsImp0aSI6IjRjNWVkYjk5NWRjZjRiZDE5NDRmNzhhMjdjMWU5N2UzIiwidXNlcl9pZCI6Mn0.FeLMkqNMSOygM-19fg5W0VqgnpIolnMgL0a9OjUq5FE",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "Full_Name",
+                                    "value": "LastChild",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/updatechild/4/",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "updatechild",
+                                "4",
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Delete Child",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMzEzNzUxLCJpYXQiOjE3MjgxMjk3NTEsImp0aSI6IjQyMGY2NDgyNWZjNDQ5ZWQ4MWJlODc2ZmNiOWI3NzRhIiwidXNlcl9pZCI6Mn0.pLLVdzwIyVjSKraJT1nbqWdUTPmezZHQsPuA6zOAnzI",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/deletechild/4/",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "deletechild",
+                                "4",
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "RetriveChild",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMzEzNzUxLCJpYXQiOjE3MjgxMjk3NTEsImp0aSI6IjQyMGY2NDgyNWZjNDQ5ZWQ4MWJlODc2ZmNiOWI3NzRhIiwidXNlcl9pZCI6Mn0.pLLVdzwIyVjSKraJT1nbqWdUTPmezZHQsPuA6zOAnzI",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/viewchild/3/",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "viewchild",
+                                "3",
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Cuisine",
+            "item": [
+                {
+                    "name": "Add Cuisine",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzNjU4OTI1LCJpYXQiOjE3Mjg0NzQ5MjUsImp0aSI6IjIzYjlhMjMxZGNkYTQ5NTg4ZmFlMzQ4ODQ3ZTZhMGJhIiwidXNlcl9pZCI6Mn0.lQK1MnwB583j8JnCjMFJRzqGqqDSrK5g9QerEXMPRUM",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "name",
+                                    "value": "Chinese",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/addcuisine",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "addcuisine"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "List Cuisine",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzNjU4OTI1LCJpYXQiOjE3Mjg0NzQ5MjUsImp0aSI6IjIzYjlhMjMxZGNkYTQ5NTg4ZmFlMzQ4ODQ3ZTZhMGJhIiwidXNlcl9pZCI6Mn0.lQK1MnwB583j8JnCjMFJRzqGqqDSrK5g9QerEXMPRUM",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/listcuisine",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "listcuisine"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Delete Cuisine",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzNjU4OTI1LCJpYXQiOjE3Mjg0NzQ5MjUsImp0aSI6IjIzYjlhMjMxZGNkYTQ5NTg4ZmFlMzQ4ODQ3ZTZhMGJhIiwidXNlcl9pZCI6Mn0.lQK1MnwB583j8JnCjMFJRzqGqqDSrK5g9QerEXMPRUM",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/deletecuisine/2/",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "deletecuisine",
+                                "2",
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Check User Status",
+            "item": [
+                {
+                    "name": "User Registration Status",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzNjU4OTI1LCJpYXQiOjE3Mjg0NzQ5MjUsImp0aSI6IjIzYjlhMjMxZGNkYTQ5NTg4ZmFlMzQ4ODQ3ZTZhMGJhIiwidXNlcl9pZCI6Mn0.lQK1MnwB583j8JnCjMFJRzqGqqDSrK5g9QerEXMPRUM",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/checkuser/7762019670/",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "checkuser",
+                                "7762019670",
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Rating",
+            "item": [
+                {
+                    "name": "Add Rating",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMTQ2MzU0LCJpYXQiOjE3Mjc5NjIzNTQsImp0aSI6IjE3MGY1OTJmMGI3ZDRlOTk5YTIyZDVkZDlhYmY1ODliIiwidXNlcl9pZCI6MX0.xZjVpg4_D95cQnEyDzQXucLHtdpcXTXELTFkuzHvt-0",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "ratings",
+                                    "value": "5",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "menu_id",
+                                    "value": "6",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/createrating",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "createrating"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "List Ratings",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMzEzNzUxLCJpYXQiOjE3MjgxMjk3NTEsImp0aSI6IjQyMGY2NDgyNWZjNDQ5ZWQ4MWJlODc2ZmNiOWI3NzRhIiwidXNlcl9pZCI6Mn0.pLLVdzwIyVjSKraJT1nbqWdUTPmezZHQsPuA6zOAnzI",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/listrating/3/",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "listrating",
+                                "3",
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Delete Rating",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzNjU4OTI1LCJpYXQiOjE3Mjg0NzQ5MjUsImp0aSI6IjIzYjlhMjMxZGNkYTQ5NTg4ZmFlMzQ4ODQ3ZTZhMGJhIiwidXNlcl9pZCI6Mn0.lQK1MnwB583j8JnCjMFJRzqGqqDSrK5g9QerEXMPRUM",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": []
+                        },
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/deleterating/6/",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "deleterating",
+                                "6",
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "MenuItem",
+            "item": [
+                {
+                    "name": "CreateMenuItem",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzNjU4OTI1LCJpYXQiOjE3Mjg0NzQ5MjUsImp0aSI6IjIzYjlhMjMxZGNkYTQ5NTg4ZmFlMzQ4ODQ3ZTZhMGJhIiwidXNlcl9pZCI6Mn0.lQK1MnwB583j8JnCjMFJRzqGqqDSrK5g9QerEXMPRUM",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "Item_Name",
+                                    "value": "product5",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "Item_Image",
+                                    "type": "file",
+                                    "src": "/C:/Users/Satish kumar/Downloads/vegetable-2924245_1280.jpg"
+                                },
+                                {
+                                    "key": "Item_Description",
+                                    "value": "Product2",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "Item_Price",
+                                    "value": "741",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "cuisine_id",
+                                    "value": "3",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/createmenu",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "createmenu"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "ListMenuItem",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzNjU4OTI1LCJpYXQiOjE3Mjg0NzQ5MjUsImp0aSI6IjIzYjlhMjMxZGNkYTQ5NTg4ZmFlMzQ4ODQ3ZTZhMGJhIiwidXNlcl9pZCI6Mn0.lQK1MnwB583j8JnCjMFJRzqGqqDSrK5g9QerEXMPRUM",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/listmenuitem",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "listmenuitem"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "UpdateMenuItem",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzNjU4OTI1LCJpYXQiOjE3Mjg0NzQ5MjUsImp0aSI6IjIzYjlhMjMxZGNkYTQ5NTg4ZmFlMzQ4ODQ3ZTZhMGJhIiwidXNlcl9pZCI6Mn0.lQK1MnwB583j8JnCjMFJRzqGqqDSrK5g9QerEXMPRUM",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "Item_Name",
+                                    "value": "productfirst",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/updatemenuitem/1/",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "updatemenuitem",
+                                "1",
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "DeleteMenuItem",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMTQ2MzU0LCJpYXQiOjE3Mjc5NjIzNTQsImp0aSI6IjE3MGY1OTJmMGI3ZDRlOTk5YTIyZDVkZDlhYmY1ODliIiwidXNlcl9pZCI6MX0.xZjVpg4_D95cQnEyDzQXucLHtdpcXTXELTFkuzHvt-0",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/updatemenuitem/1/",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "updatemenuitem",
+                                "1",
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "RetriveMenuItem",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMzEzNzUxLCJpYXQiOjE3MjgxMjk3NTEsImp0aSI6IjQyMGY2NDgyNWZjNDQ5ZWQ4MWJlODc2ZmNiOWI3NzRhIiwidXNlcl9pZCI6Mn0.pLLVdzwIyVjSKraJT1nbqWdUTPmezZHQsPuA6zOAnzI",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/retrievemenuitem/2/",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "retrievemenuitem",
+                                "2",
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Cart",
+            "item": [
+                {
+                    "name": "Add to Cart",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMjI0MjM1LCJpYXQiOjE3MjgwNDAyMzUsImp0aSI6ImNhOGZjZTVlMDU5ODQzMjg4YzRlZjBiNzIxZGZlOGY5IiwidXNlcl9pZCI6MX0.rqFOSwR1FkEPpbGeJIzwSxqjgYCrz_s6RaVPAoiUXQ4",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "menu_id",
+                                    "value": "5",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "Item_Quantity",
+                                    "value": "3",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "child_id",
+                                    "value": "1",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/addtocart",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "addtocart"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "ViewCart By child",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMzEzNzUxLCJpYXQiOjE3MjgxMjk3NTEsImp0aSI6IjQyMGY2NDgyNWZjNDQ5ZWQ4MWJlODc2ZmNiOWI3NzRhIiwidXNlcl9pZCI6Mn0.pLLVdzwIyVjSKraJT1nbqWdUTPmezZHQsPuA6zOAnzI",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "child_id",
+                                    "value": "2",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/cart/",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "cart",
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Update Item Frequency in Cart",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMjI0MjM1LCJpYXQiOjE3MjgwNDAyMzUsImp0aSI6ImNhOGZjZTVlMDU5ODQzMjg4YzRlZjBiNzIxZGZlOGY5IiwidXNlcl9pZCI6MX0.rqFOSwR1FkEPpbGeJIzwSxqjgYCrz_s6RaVPAoiUXQ4",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "Item_Quantity",
+                                    "value": "5",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/cartupdate/2/",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "cartupdate",
+                                "2",
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "ViewCartItem",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMjI0MjM1LCJpYXQiOjE3MjgwNDAyMzUsImp0aSI6ImNhOGZjZTVlMDU5ODQzMjg4YzRlZjBiNzIxZGZlOGY5IiwidXNlcl9pZCI6MX0.rqFOSwR1FkEPpbGeJIzwSxqjgYCrz_s6RaVPAoiUXQ4",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/cartretrieve/2/",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "cartretrieve",
+                                "2",
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "DeleteCartItem",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMzEzNzUxLCJpYXQiOjE3MjgxMjk3NTEsImp0aSI6IjQyMGY2NDgyNWZjNDQ5ZWQ4MWJlODc2ZmNiOWI3NzRhIiwidXNlcl9pZCI6Mn0.pLLVdzwIyVjSKraJT1nbqWdUTPmezZHQsPuA6zOAnzI",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/deletecartitem/6/",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "deletecartitem",
+                                "6",
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "OrderItem",
+            "item": [
+                {
+                    "name": "createorder",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzNTU2MjIyLCJpYXQiOjE3MjgzNzIyMjIsImp0aSI6IjczMjczNDc5MGVkOTRkYjE5MWFiNDU1YzA0MWFhMDExIiwidXNlcl9pZCI6Mn0.roFcNBryL0GGjQSAsKmWRQppDQi32MA-jPtDzHq4MZg",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "child_id",
+                                    "value": "1",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/createorder",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "createorder"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "ViewOrder",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzNTU2MjIyLCJpYXQiOjE3MjgzNzIyMjIsImp0aSI6IjczMjczNDc5MGVkOTRkYjE5MWFiNDU1YzA0MWFhMDExIiwidXNlcl9pZCI6Mn0.roFcNBryL0GGjQSAsKmWRQppDQi32MA-jPtDzHq4MZg",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "child_id",
+                                    "value": "1",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/order?child_id=1",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "order"
+                            ],
+                            "query": [
+                                {
+                                    "key": "child_id",
+                                    "value": "1"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "updateorder",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzNTU2MjIyLCJpYXQiOjE3MjgzNzIyMjIsImp0aSI6IjczMjczNDc5MGVkOTRkYjE5MWFiNDU1YzA0MWFhMDExIiwidXNlcl9pZCI6Mn0.roFcNBryL0GGjQSAsKmWRQppDQi32MA-jPtDzHq4MZg",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "order_status",
+                                    "value": "Processing",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/updateorder/93068f3f-d775-47f1-9ecd-72470f97fa0a/",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "updateorder",
+                                "93068f3f-d775-47f1-9ecd-72470f97fa0a",
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Retrieve Order",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzNTU2MjIyLCJpYXQiOjE3MjgzNzIyMjIsImp0aSI6IjczMjczNDc5MGVkOTRkYjE5MWFiNDU1YzA0MWFhMDExIiwidXNlcl9pZCI6Mn0.roFcNBryL0GGjQSAsKmWRQppDQi32MA-jPtDzHq4MZg",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/updateorder/93068f3f-d775-47f1-9ecd-72470f97fa0a/",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "updateorder",
+                                "93068f3f-d775-47f1-9ecd-72470f97fa0a",
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Plan",
+            "item": [
+                {
+                    "name": "Create Plan",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzNjU0NjM0LCJpYXQiOjE3Mjg0NzA2MzQsImp0aSI6ImE0MjdmOTgxMzZkOTQ2NjViOThkM2JlZGUwODVhNzJmIiwidXNlcl9pZCI6MX0.rmvpDoW2LZV8VrPEgxhVz1cfTG-rn6zuZaBkluc8Vqo",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "Plan_Charges",
+                                    "value": "799",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "Plan_Type",
+                                    "value": "Monthly",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "Plan_Description",
+                                    "value": "Premium Quality Food\nEvery day a New Meal\nTasty and Healthy Food",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/createplan",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "createplan"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "View Plans",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzNTU2MjIyLCJpYXQiOjE3MjgzNzIyMjIsImp0aSI6IjczMjczNDc5MGVkOTRkYjE5MWFiNDU1YzA0MWFhMDExIiwidXNlcl9pZCI6Mn0.roFcNBryL0GGjQSAsKmWRQppDQi32MA-jPtDzHq4MZg",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/retrieveplan/2/",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "retrieveplan",
+                                "2",
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Retrieve Plan",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzNTU2MjIyLCJpYXQiOjE3MjgzNzIyMjIsImp0aSI6IjczMjczNDc5MGVkOTRkYjE5MWFiNDU1YzA0MWFhMDExIiwidXNlcl9pZCI6Mn0.roFcNBryL0GGjQSAsKmWRQppDQi32MA-jPtDzHq4MZg",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/retrieveplan/2/",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "retrieveplan",
+                                "2",
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Update Plan",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzNjU0NjM0LCJpYXQiOjE3Mjg0NzA2MzQsImp0aSI6ImE0MjdmOTgxMzZkOTQ2NjViOThkM2JlZGUwODVhNzJmIiwidXNlcl9pZCI6MX0.rmvpDoW2LZV8VrPEgxhVz1cfTG-rn6zuZaBkluc8Vqo",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "Plan_Charges",
+                                    "value": "599",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/updateplan/2/",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "updateplan",
+                                "2",
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Delete Plans",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzNjU0NjM0LCJpYXQiOjE3Mjg0NzA2MzQsImp0aSI6ImE0MjdmOTgxMzZkOTQ2NjViOThkM2JlZGUwODVhNzJmIiwidXNlcl9pZCI6MX0.rmvpDoW2LZV8VrPEgxhVz1cfTG-rn6zuZaBkluc8Vqo",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/deleteplan/2/",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "deleteplan",
+                                "2",
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Subscription",
+            "item": [
+                {
+                    "name": "CreateSubscription",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMzEzNzUxLCJpYXQiOjE3MjgxMjk3NTEsImp0aSI6IjQyMGY2NDgyNWZjNDQ5ZWQ4MWJlODc2ZmNiOWI3NzRhIiwidXNlcl9pZCI6Mn0.pLLVdzwIyVjSKraJT1nbqWdUTPmezZHQsPuA6zOAnzI",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "plan_id",
+                                    "value": "4",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "child",
+                                    "value": "5",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/createsubscription",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "createsubscription"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "ListSubscription",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMzEzNzUxLCJpYXQiOjE3MjgxMjk3NTEsImp0aSI6IjQyMGY2NDgyNWZjNDQ5ZWQ4MWJlODc2ZmNiOWI3NzRhIiwidXNlcl9pZCI6Mn0.pLLVdzwIyVjSKraJT1nbqWdUTPmezZHQsPuA6zOAnzI",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "child_id",
+                                    "value": "5",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/listsubscription",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "listsubscription"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "PaymentAPI",
+            "item": [
+                {
+                    "name": "Pay with Razorpay",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMzEzNzUxLCJpYXQiOjE3MjgxMjk3NTEsImp0aSI6IjQyMGY2NDgyNWZjNDQ5ZWQ4MWJlODc2ZmNiOWI3NzRhIiwidXNlcl9pZCI6Mn0.pLLVdzwIyVjSKraJT1nbqWdUTPmezZHQsPuA6zOAnzI",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "order_id",
+                                    "value": "febd810b-c909-40be-a07a-76a8fa60046b",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "order_amount",
+                                    "value": "500",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "child_id",
+                                    "value": "1",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/pay",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "pay"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Payment Handler",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMzEzNzUxLCJpYXQiOjE3MjgxMjk3NTEsImp0aSI6IjQyMGY2NDgyNWZjNDQ5ZWQ4MWJlODc2ZmNiOWI3NzRhIiwidXNlcl9pZCI6Mn0.pLLVdzwIyVjSKraJT1nbqWdUTPmezZHQsPuA6zOAnzI",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "order_id",
+                                    "value": "febd810b-c909-40be-a07a-76a8fa60046b",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "razorpay_order_id",
+                                    "value": "order_P9GMR58Z7cmWzR",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "amount",
+                                    "value": "500",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/handlePayment",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "handlePayment"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Transaction",
+            "item": [
+                {
+                    "name": "ViewTransactionRecord",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM0MDg4MzczLCJpYXQiOjE3Mjg5MDQzNzMsImp0aSI6ImFjMmIzMjgyNTUxOTRjYTQ4MzQzN2EzZTIzYzc2ODRhIiwidXNlcl9pZCI6Mn0.QqpXWcq1t1aq7xbj3hp16oURC3nJ4V6JsPM8Z5Az7a0",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "child_id",
+                                    "value": "1",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/viewtransaction",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "viewtransaction"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "getToken",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [
+                        {
+                            "key": "email",
+                            "value": "2019kumarsatish2019@gmail.com",
+                            "type": "text"
+                        },
+                        {
+                            "key": "password",
+                            "value": "122",
+                            "type": "text"
+                        }
+                    ]
+                },
+                "url": {
+                    "raw": "http://127.0.0.1:8000/api/token/",
+                    "protocol": "http",
+                    "host": [
+                        "127",
+                        "0",
+                        "0",
+                        "1"
+                    ],
+                    "port": "8000",
+                    "path": [
+                        "api",
+                        "token",
+                        ""
+                    ]
+                }
+            },
+            "response": []
+        }
+    ]
+}

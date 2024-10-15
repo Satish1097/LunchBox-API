@@ -178,7 +178,6 @@ class OrderSerializer(serializers.ModelSerializer):
             "orderid",
             "child",
             "created_on",
-            "payment_status",
             "order_status",
             "order_amount",
             "items",
@@ -240,7 +239,7 @@ class TransactionDetailSerializer(serializers.ModelSerializer):
             "order_id",
             "subscription_id",
             "subscription",
-            "Payment_id",
+            "Payment_order_id",
             "payment_status",
             "child",
         ]

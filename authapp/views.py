@@ -19,6 +19,7 @@ import razorpay
 from dotenv import load_dotenv
 import os
 from django.views.decorators.csrf import csrf_exempt
+from rest_framework_simplejwt.tokens import RefreshToken
 
 
 load_dotenv()
@@ -575,13 +576,17 @@ class PaymentAPIView(GenericAPIView):
 
         # Check whether it's an order payment or a subscription payment
         if order_id:
-            # Handle Order payment
-            order = Order.objects.get(orderid=order_id)
-            amount = int(order_amount)
+            try:
+                order = Order.objects.get(orderid=order_id)
+                amount = int(order_amount)
+            except Order.DoesNotExist:
+                return Response("Invalid OrderId")
         elif subscription_id:
-            # Handle Subscription payment
-            subscription = Subscription.objects.get(id=subscription_id)
-            amount = order_amount
+            try:
+                subscription = Subscription.objects.get(id=subscription_id)
+                amount = int(order_amount)
+            except Subscription.DoesNotExist:
+                return Response("Invalid Subscription Id")
         else:
             return Response(
                 {"error": "Either order_id or subscription_id must be provided"},
@@ -596,11 +601,13 @@ class PaymentAPIView(GenericAPIView):
                 payment_capture="1",
             )
         )
+        razorpay_order_id = payment["id"]
         # Create a TransactionDetail entry in the database
         transaction = TransactionDetail.objects.create(
             order_id=order if order_id else None,
             subscription_id=subscription if subscription_id else None,
             transaction_amount=amount,
+            Payment_order_id=razorpay_order_id,
             payment_status="Pending",
             child=child,
         )
@@ -608,7 +615,7 @@ class PaymentAPIView(GenericAPIView):
         # Return the payment details
         return Response(
             {
-                "payment_id": payment["id"],
+                "razorpay_order_id": payment["id"],
                 "order_id": order_id if order_id else None,
                 "subscription_id": subscription_id if subscription_id else None,
                 "transaction_id": transaction.Transaction_id,
@@ -621,28 +628,64 @@ class PaymentAPIView(GenericAPIView):
 class PaymentHandlerView(GenericAPIView):
     @csrf_exempt
     def post(self, request):
-        payment_id = request.data.get("payment_id")
-        order_id = request.data.get("order_id")
+        payment_id = request.data.get("razorpay_payment_id")
+        order_id = request.data.get("razorpay_order_id")
         signature = request.data.get("razorpay_signature")
+        amount = request.data.get(
+            "amount"
+        )  # Razorpay expects the amount in paise for capture
+        amount = amount * 100
+        if not payment_id or not order_id or not signature or not amount:
+            return Response({"error": "Missing required fields"}, status=400)
 
-        # Validate the signature to confirm the payment is authentic
         client = razorpay.Client(auth=(os.getenv("key_id"), os.getenv("key_secret")))
 
+        # Step 1: Verify the payment signature
         params_dict = {
             "razorpay_order_id": order_id,
             "razorpay_payment_id": payment_id,
             "razorpay_signature": signature,
         }
+
         try:
             # Verifying signature
             client.utility.verify_payment_signature(params_dict)
-            # If verification succeeds, you can mark the payment as successful in your database
-            return Response({"status": "Payment successful"}, status=status.HTTP_200_OK)
+
+            try:
+                capture_response = client.payment.capture(payment_id, int(amount))
+                # After capture update the payment_status in Transaction
+                transaction = TransactionDetail.objects.get(payment_order_id=order_id)
+                transaction.payment_status = "Done"
+                transaction.save()
+
+                return Response(
+                    {
+                        "status": "Payment successful",
+                        "capture_response": capture_response,
+                    },
+                    status=status.HTTP_200_OK,
+                )
+
+            except Exception as capture_error:
+                return Response(
+                    {"error": "Payment capture failed", "details": str(capture_error)},
+                    status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                )
+
         except razorpay.errors.SignatureVerificationError:
-            # Handle invalid signature verification
             return Response(
                 {"error": "Payment verification failed"},
                 status=status.HTTP_400_BAD_REQUEST,
+            )
+        except TransactionDetail.DoesNotExist:
+            return Response(
+                {"error": "Transaction not found"},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+        except Exception as e:
+            return Response(
+                {"error": "An error occurred", "details": str(e)},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
 
 
@@ -653,6 +696,17 @@ class TransactionDetailAPIView(GenericAPIView):
     def get(self, request, *args, **kwargs):
         child_id = request.data.get("child_id")
         child = Child.objects.get(id=child_id)
-        transaction = TransactionDetail.objects.get(child=child)
-        serializer = self.get_serializer(transaction)
+        transaction = TransactionDetail.objects.filter(child=child)
+        serializer = self.get_serializer(transaction, many=True)
         return Response(serializer.data)
+
+
+class LogoutAPIView(GenericAPIView):
+    def post(self, request):
+        try:
+            refresh_token = request.data["refresh_token"]
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+            return Response(status=status.HTTP_205_RESET_CONTENT)
+        except Exception as e:
+            return Response(status=status.HTTP_400_BAD_REQUEST)

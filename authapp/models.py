@@ -168,19 +168,11 @@ class Order(models.Model):
         ("Completed", "Completed"),
         ("Cancelled", "Cancelled"),
     )
-    PaymentStatus_Choice = (
-        ("Pending", "Pending"),
-        ("Failed", "Failed"),
-        ("Done", "Done"),
-    )
     orderid = models.CharField(
         max_length=100, default=uuid.uuid4, editable=False, primary_key=True
     )
     child = models.ForeignKey(Child, on_delete=models.CASCADE)
     created_on = models.DateTimeField(auto_now_add=True)
-    payment_status = models.CharField(
-        max_length=10, choices=PaymentStatus_Choice, default="Pending"
-    )
     order_status = models.CharField(
         max_length=20, choices=Status_Choice, default="Pending"
     )
@@ -214,20 +206,12 @@ class Plan(models.Model):
 
 
 class Subscription(models.Model):
-    PaymentStatus_Choice = (
-        ("Pending", "Pending"),
-        ("Failed", "Failed"),
-        ("Done", "Done"),
-    )
     child = models.ForeignKey(
         Child, on_delete=models.CASCADE, related_name="subscriptions"
     )
     plan = models.ForeignKey(Plan, on_delete=models.CASCADE)
     start_date = models.DateTimeField(blank=True, null=True)
     end_date = models.DateTimeField(blank=True, null=True)
-    payment_status = models.CharField(
-        max_length=10, choices=PaymentStatus_Choice, default="Pending"
-    )
     is_active = models.BooleanField(default=True)
 
     def save(self, *args, **kwargs):
@@ -281,7 +265,7 @@ class TransactionDetail(models.Model):
     Transaction_id = models.CharField(
         max_length=100, default=uuid.uuid4, editable=False, primary_key=True
     )
-    Payment_id = models.CharField(max_length=100, unique=True, null=True)
+    Payment_order_id = models.CharField(max_length=100, unique=True, null=True)
     transaction_amount = models.DecimalField(max_digits=10, decimal_places=3)
     payment_status = models.CharField(
         max_length=10, choices=Status_Choices, default="Pending"

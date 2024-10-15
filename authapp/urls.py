@@ -62,4 +62,6 @@ urlpatterns = [
     # Transaction Detail
     path("viewtransaction", TransactionDetailAPIView.as_view(), name="viewtransaction"),
     path("handlePayment", PaymentHandlerView.as_view(), name="handlepayment"),
+    # Logout API
+    path("logoutuser", LogoutAPIView.as_view(), name="logoutuser"),
 ]

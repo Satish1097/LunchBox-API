@@ -1,5 +1,10 @@
 from pathlib import Path
 from datetime import timedelta
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -9,10 +14,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-cf6-_un293356&#q-+xehwsz1o690^0_t9_yt4xu15you@5#$7"
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("Debug")
 
 ALLOWED_HOSTS = []
 
@@ -151,7 +156,7 @@ CELERY_TIMEZONE = "Asia/Kolkata"
 CELERY_RESULT_BACKEND = "redis"
 CELERY_CACHE_BACKEND = "django-cache"
 CELERY_CACHE_BACKEND = "default"
-CELERY_IMPORTS = ("app1.tasks",)
+CELERY_IMPORTS = ("authapp.tasks",)
 
 
 CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
