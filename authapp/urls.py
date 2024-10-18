@@ -64,4 +64,27 @@ urlpatterns = [
     path("handlePayment", PaymentHandlerView.as_view(), name="handlepayment"),
     # Logout API
     path("logoutuser", LogoutAPIView.as_view(), name="logoutuser"),
+    # School API
+    path("listschoolname", SchoolNameAPIView.as_view(), name="listschoolname"),
+    path("addschool", SchoolNameAPIView.as_view(), name="addschool"),
+    path("updateschool/<int:pk>/", SchoolNameAPIView.as_view(), name="updateschool"),
+    path("deleteschool/<int:pk>/", SchoolNameAPIView.as_view(), name="deleteschool"),
+    # Agent API's
+    path("listagent", AgentAPIView.as_view(), name="listagent"),
+    path("addagent", AgentAPIView.as_view(), name="addagent"),
+    path("updateagent/<int:pk>/", AgentAPIView.as_view(), name="updateagent"),
+    path("deleteagent/<int:pk>/", AgentAPIView.as_view(), name="deleteagent"),
+    # Cluster API's
+    path("listcluster", ClusterAPIView.as_view(), name="listcluster"),
+    path("createcluster", ClusterAPIView.as_view(), name="createcluster"),
+    path("updatecluster/<int:pk>/", ClusterAPIView.as_view(), name="updatecluster"),
+    path("deletecluster/<int:pk>/", ClusterAPIView.as_view(), name="deletecluster"),
+    path("Updatecluster/<int:pk>/", ClusterAPIView.as_view(), name="Updatecluster"),
+    # Order Menu detail
+    path("ordermenudetail", OrderMenuDetailAPIView.as_view(), name="ordermenudetail"),
+    # UserManagement API's
+    path("listuser", UserManagementAPIView.as_view(), name="listuser"),
+    path("viewuser/<int:pk>/", UserManagementAPIView.as_view(), name="viewuser"),
+    path("updateuser/<int:pk>/", UserManagementAPIView.as_view(), name="updateuser"),
+    path("deleteuser/<int:pk>/", UserManagementAPIView.as_view(), name="deleteuser"),
 ]

@@ -8,7 +8,7 @@
         "program": "${workspaceFolder}/manage.py",
         "args": [
           "runserver",
-          "--noreload"
+          // "--noreload"
         ],
         "django": true,
         "justMyCode": true,

@@ -1,7 +1,9 @@
 from .models import *
 from rest_framework import serializers
-from .models import SchoolArea, SchoolName
 from django.db import transaction
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.exceptions import TokenError
+from rest_framework_simplejwt.tokens import RefreshToken, OutstandingToken
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -20,7 +22,7 @@ class SchoolAreaSerializer(serializers.ModelSerializer):
 
 class SchoolNameSerializer(serializers.ModelSerializer):
     class Meta:
-        model = SchoolName
+        model = School
         fields = "__all__"
 
 
@@ -29,7 +31,7 @@ class ChildSerializer(serializers.ModelSerializer):
     school_name = SchoolNameSerializer(read_only=True, source="School_Name")
 
     school_name_id = serializers.PrimaryKeyRelatedField(
-        queryset=SchoolName.objects.all(), write_only=True, source="School_Name"
+        queryset=School.objects.all(), write_only=True, source="School_Name"
     )
     school_area_id = serializers.PrimaryKeyRelatedField(
         queryset=SchoolArea.objects.all(), write_only=True, source="School_Area"
@@ -61,6 +63,11 @@ class ChildSerializer(serializers.ModelSerializer):
             School_Name=school_name, School_Area=school_area, **validated_data
         )
         return child
+
+
+class UserChildSerializer(serializers.Serializer):
+    user = UserSerializer()
+    children = ChildSerializer(many=True, source="child")
 
 
 class CuisineSerializer(serializers.ModelSerializer):
@@ -243,3 +250,93 @@ class TransactionDetailSerializer(serializers.ModelSerializer):
             "payment_status",
             "child",
         ]
+
+
+class LogoutSerializer(serializers.Serializer):
+    refresh_token = serializers.CharField()
+
+    def validate(self, attrs):
+        # Ensure refresh token is provided
+        if not attrs.get("refresh_token"):
+            raise serializers.ValidationError("Refresh token is required.")
+        return attrs
+
+    def save(self):
+        try:
+            refresh_token = RefreshToken(self.validated_data["refresh_token"])
+
+            # Check if the token is already blacklisted using check_blacklist()
+            try:
+                refresh_token.check_blacklist()  # Raises error if blacklisted
+            except TokenError:
+                raise serializers.ValidationError(
+                    "The refresh token is already blacklisted."
+                )
+
+            # Blacklist the refresh token
+            refresh_token.blacklist()
+
+            # Attempt to blacklist the associated access token
+            access_token = refresh_token.access_token
+
+            # Blacklist associated access token explicitly
+            jti = access_token.get("jti")  # Unique identifier for the token
+            try:
+                token = OutstandingToken.objects.get(jti=jti)
+                token.blacklist()  # Mark access token as blacklisted
+            except OutstandingToken.DoesNotExist:
+                raise serializers.ValidationError("No associated access token found.")
+
+            return {
+                "detail": "Tokens successfully blacklisted."
+            }  # Return success message
+        except TokenError as e:
+            raise serializers.ValidationError(f"Token error: {str(e)}")
+        except Exception as e:
+            raise serializers.ValidationError(f"Unexpected error: {str(e)}")
+
+
+class AgentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Agent
+        fields = "__all__"
+
+
+class DeliveryClusterSerializer(serializers.ModelSerializer):
+    school = SchoolNameSerializer(read_only=True, many=True)
+    Delivery_Agent = AgentSerializer(read_only=True)
+    School_id = serializers.PrimaryKeyRelatedField(
+        queryset=School.objects.all(), many=True, write_only=True
+    )
+    Agent_id = serializers.PrimaryKeyRelatedField(
+        queryset=Agent.objects.all(), write_only=True
+    )
+
+    class Meta:
+        model = DeliveryCluster
+        fields = [
+            "id",
+            "Cluster_Name",
+            "Delivery_Agent",
+            "School_id",
+            "school",
+            "Agent_id",
+        ]
+
+    def create(self, validated_data):
+        # Extract school IDs from validated data
+        school_ids = validated_data.pop("School_id")
+        agent_id = validated_data.pop("Agent_id")
+        # Create DeliveryCluster object
+        delivery_cluster = DeliveryCluster.objects.create(
+            Delivery_Agent=agent_id, **validated_data
+        )
+        # Add the schools by their IDs
+        # schools = School.objects.filter(id__in=school_ids)
+        delivery_cluster.school.set(school_ids)
+        return delivery_cluster
+
+
+class OrderMenuSerializer(serializers.Serializer):
+    menu_item_name = serializers.CharField(source="menu_item__Item_Name")
+    total_quantity = serializers.IntegerField()

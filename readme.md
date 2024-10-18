@@ -112,3 +112,16 @@ paymentHandler:- It verifies the signature and captures the payment after paymen
 14.Transaction:- 
 View Transaction:-User can see the transaction Detail for selected child
 
+
+
+
+## Delete all tables in postgresql
+```sql
+do $$ declare
+    r record;
+begin
+    for r in (select tablename from pg_tables where schemaname = 'public') loop
+        execute 'drop table if exists ' || quote_ident(r.tablename) || ' cascade';
+    end loop;
+end $$;
+```

@@ -4,7 +4,6 @@ from django.utils import timezone
 from django.core.validators import MaxValueValidator, MinValueValidator
 import uuid
 from datetime import timedelta
-import datetime
 
 
 class CustomUserManager(UserManager):
@@ -76,15 +75,31 @@ class SchoolArea(models.Model):
         return self.area
 
 
-class SchoolName(models.Model):
+class School(models.Model):
     schoolName = models.CharField(max_length=100, unique=True)
+    School_Contact_Number = models.CharField(max_length=13, unique=True)
+    School_Address = models.TextField(max_length=1000)
+    School_Timing = models.CharField(max_length=15)
+
+    def get_start_time(self):
+        start, _ = self.School_Timing.split("-")
+        return start
+
+    def get_end_time(self):
+        _, end = self.School_Timing.split("-")
+        return end
 
     def __str__(self):
-        return self.schoolName
+        return f"{self.get_start_time()} to {self.get_end_time()}"
+
+    def __str__(self):
+        return f"{self.schoolName}-{self.id}"
 
 
 class Child(models.Model):
-    Parent = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    Parent = models.ForeignKey(
+        User, on_delete=models.CASCADE, null=True, related_name="child"
+    )
     GENDER_CHOICES = (
         ("male", "Male"),
         ("female", "Female"),
@@ -93,7 +108,7 @@ class Child(models.Model):
     Date_of_Birth = models.DateTimeField()
     Gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
     School_Area = models.ForeignKey(SchoolArea, on_delete=models.CASCADE)
-    School_Name = models.ForeignKey(SchoolName, on_delete=models.CASCADE)
+    School_Name = models.ForeignKey(School, on_delete=models.CASCADE)
     Class = models.CharField(max_length=20)
     Division = models.CharField(max_length=10)
     Notes = models.CharField(max_length=1000, blank=True)
@@ -178,7 +193,7 @@ class Order(models.Model):
     )
 
     def __str__(self):
-        return f"Order for {self.child.Full_Name}"
+        return f"Order for {self.child.Full_Name}-{self.orderid}"
 
 
 class OrderItem(models.Model):
@@ -273,3 +288,24 @@ class TransactionDetail(models.Model):
 
     def __str__(self):
         return f"{self.child.Full_Name} Transaction_id {self.Transaction_id}"
+
+
+class Agent(models.Model):
+    Name = models.CharField(max_length=100)
+    Contact_Number = models.CharField(max_length=13, unique=True)
+    Address = models.CharField(max_length=100)
+    User_Id = models.CharField(max_length=100)
+    Password = models.CharField(max_length=256)
+    Government_Id = models.ImageField(upload_to="GovermentId/")
+
+    def __str__(self):
+        return f"{self.Name}-{self.id}"
+
+
+class DeliveryCluster(models.Model):
+    Cluster_Name = models.CharField(max_length=100)
+    school = models.ManyToManyField(School)
+    Delivery_Agent = models.ForeignKey(Agent, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.Cluster_Name}-{self.id}"

@@ -6,6 +6,7 @@ import pyotp
 from twilio.rest import Client
 from .models import *
 from rest_framework.generics import GenericAPIView
+from rest_framework.views import APIView
 from .serializers import *
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import (
@@ -20,6 +21,8 @@ from dotenv import load_dotenv
 import os
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.exceptions import TokenError
+from django.db.models import Sum
 
 load_dotenv()
 
@@ -73,9 +76,6 @@ class VerifyOTPView(generics.CreateAPIView):
             )
 
         if otp_record:
-            print(f"User's OTP: {user_otp}")
-            print(f"Stored Secret Key: {otp_record.secret_key}")
-
             totp = pyotp.TOTP(otp_record.secret_key, interval=120)
 
             if totp.verify(user_otp, valid_window=1):
@@ -89,15 +89,6 @@ class VerifyOTPView(generics.CreateAPIView):
                 # Create JWT token for the user
                 refresh = RefreshToken.for_user(user)
                 access_token = str(refresh.access_token)
-                refresh_token = str(refresh)
-
-                UserToken.objects.update_or_create(
-                    user=user,
-                    defaults={
-                        "access_token": access_token,
-                        "refresh_token": refresh_token,
-                    },
-                )
 
                 return Response(
                     {
@@ -119,10 +110,15 @@ class VerifyOTPView(generics.CreateAPIView):
 
 
 class UserPersonalDetailAPIView(GenericAPIView):
-    permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = User.objects.all()
     serializer_class = UserSerializer
     lookup_field = "mobile"
+
+    def get_permissions(self):
+        if self.request.method == "DELETE":
+            return [IsAdminUser()]
+        else:
+            return [IsAuthenticated()]
 
     def put(self, request, **kwargs):
         instance = self.get_object()
@@ -504,7 +500,9 @@ class OrderView(GenericAPIView):
 
         if serializer.is_valid():
             serializer.save()
-            return Response({"success": "Details Updated successfully"})
+            return Response(
+                {"data": serializer.data, "success": "Details updated successfully"}
+            )
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -740,19 +738,268 @@ class TransactionDetailAPIView(GenericAPIView):
         child_id = request.data.get("child_id")
         try:
             child = Child.objects.get(id=child_id)
-            transaction = TransactionDetail.objects.filter(child=child)
+            transaction = TransactionDetail.objects.filter(order_id__child=child)
             serializer = self.get_serializer(transaction, many=True)
             return Response(serializer.data)
         except Child.DoesNotExist:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-class LogoutAPIView(GenericAPIView):
+class LogoutAPIView(APIView):
+    serializer_class = LogoutSerializer
+
     def post(self, request):
-        try:
-            refresh_token = request.data["refresh_token"]
-            token = RefreshToken(refresh_token)
-            token.blacklist()
-            return Response(status=status.HTTP_205_RESET_CONTENT)
-        except Exception as e:
+        serializer = self.serializer_class(data=request.data)
+
+        if serializer.is_valid():
+            if (
+                serializer.save()
+            ):  # If save returns True, indicating successful access token expiration
+                return Response(status=status.HTTP_204_NO_CONTENT)
+            else:
+                return Response(
+                    {"error": "Failed to expire access token"},
+                    status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                )
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+# Admin API's
+class AdminLoginAPIView(GenericAPIView):
+    pass
+
+
+class SchoolNameAPIView(GenericAPIView):
+    serializer_class = SchoolNameSerializer
+    queryset = School.objects.all()
+    permission_classes = [IsAdminUser]
+
+    def get(self, request):
+        schoolname = School.objects.all()
+        serializer = self.get_serializer(schoolname, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(data=serializer.data)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                {"data": serializer.data, "success": "Details Updated successfully"}
+            )
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, **kwargs):
+        instance = self.get_object()
+        instance.delete()
+        return Response(
+            {"success": "Object deleted successfully"},
+            status=status.HTTP_204_NO_CONTENT,
+        )
+
+
+class AgentAPIView(GenericAPIView):
+    serializer_class = AgentSerializer
+    queryset = Agent.objects.all()
+    permission_classes = [IsAdminUser]
+
+    def get(self, request, *args, **kwargs):
+        pk = self.kwargs.get("pk")
+        if pk:
+            try:
+                agent = Agent.objects.get(id=pk)
+                serializer = self.get_serializer(agent)
+                return Response(serializer.data)
+            except Agent.DoesNotExist:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+        else:
+            agents = Agent.objects.all()
+            serializer = self.get_serializer(agents, many=True)
+            return Response(serializer.data)
+
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(data=serializer.data)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                {"data": serializer.data, "success": "Details Updated successfully"}
+            )
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, **kwargs):
+        instance = self.get_object()
+        instance.delete()
+        return Response(
+            {"success": "Object deleted successfully"},
+            status=status.HTTP_204_NO_CONTENT,
+        )
+
+
+class ClusterAPIView(GenericAPIView):
+    serializer_class = DeliveryClusterSerializer
+    queryset = DeliveryCluster.objects.all()
+    permission_classes = [IsAdminUser]
+
+    def get(self, request, *args, **kwargs):
+        pk = self.kwargs.get("pk")
+        if pk:
+            try:
+                cluster = DeliveryCluster.objects.get(id=pk)
+                serializer = self.get_serializer(cluster)
+                return Response(serializer.data)
+            except DeliveryCluster.DoesNotExist:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+        else:
+            clusters = DeliveryCluster.objects.all()
+            serializer = self.get_serializer(clusters, many=True)
+            return Response(serializer.data)
+
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    def patch(self, request, *args, **kwargs):
+        instance = self.get_object()
+        school_id = request.data.get("school_id")
+        flag = request.data.get("flag")
+        if school_id and flag == "remove":
+            try:
+                instance.school.remove(school_id)
+            except Exception as e:
+                return Response(
+                    {"error": f"Failed to remove school with id {school_id}: {str(e)}"},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+        elif school_id and flag == "add":
+            try:
+                instance.school.add(school_id)
+            except Exception as e:
+                return Response(
+                    {"error": f"Failed to add school with id {school_id}: {str(e)}"},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                {"data": serializer.data, "success": "Details updated successfully!"},
+                status=status.HTTP_200_OK,
+            )
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request, *args, **kwargs):
+        instance = self.get_object()
+        Agent_id = request.data.get("Agent_id")
+        if Agent_id:
+            try:
+                agent = Agent.objects.get(id=Agent_id)
+                instance.Delivery_Agent = agent
+                instance.save()
+            except Agent.DoesNotExist:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                {"data": serializer.data, "success": "Details Updated successfully"}
+            )
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, **kwargs):
+        instance = self.get_object()
+        instance.delete()
+        return Response(
+            {"success": "Object deleted successfully"},
+            status=status.HTTP_204_NO_CONTENT,
+        )
+
+
+class OrderMenuDetailAPIView(GenericAPIView):
+    queryset = Order.objects.all()
+    permission_classes = [IsAdminUser]
+
+    def get(self, request):
+        # Get the current date and calculate yesterday's date
+        current_date = timezone.now().date()
+        yesterday = current_date - timedelta(days=1)
+
+        # filter order related items before yesterday and equal to get all menuitem from them
+        menu_summary = (
+            OrderItem.objects.filter(order__created_on__date__gte=yesterday)
+            .values("menu_item__Item_Name")  # Group by the MenuItem name
+            .annotate(total_quantity=Sum("Item_Quantity"))  # Sum the quantities
+        )
+        serializer = OrderMenuSerializer(menu_summary, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class UserManagementAPIView(GenericAPIView):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+    permission_classes = [IsAdminUser]
+
+    def get(self, request, *args, **kwargs):
+        pk = self.kwargs.get("pk")
+        if pk:
+            try:
+                user = User.objects.get(id=pk)
+                serializer = self.get_serializer(user)
+                return Response(serializer.data)
+            except User.DoesNotExist:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+        else:
+            users = User.objects.prefetch_related("child")
+            serializer = UserChildSerializer(users, many=True)
+            return Response(serializer.data)
+
+    def put(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                {"data": serializer.data, "success": "Details Updated successfully"}
+            )
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, **kwargs):
+        instance = self.get_object()
+        if instance:
+            serializer = self.get_serializer(instance)
+            instance.delete()
+            return Response(
+                {"data": serializer.data, "success": "Object deleted successfully"},
+                status=status.HTTP_204_NO_CONTENT,
+            )
+        return Response({"message": "Not Found"}, status=status.HTTP_400_BAD_REQUEST)
