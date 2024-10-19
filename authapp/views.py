@@ -133,7 +133,6 @@ class UserPersonalDetailAPIView(GenericAPIView):
 
 
 class RetrieveUserAPIView(GenericAPIView):
-    permission_classes = [IsAuthenticated]
     queryset = User.objects.all()
     serializer_class = UserSerializer
     lookup_field = "mobile"
@@ -247,7 +246,13 @@ class CuisineAPIView(GenericAPIView):
         cuisine = cuisine_data.get("name")
         try:
             cuisine_name = Cuisine.objects.get(name=cuisine)
-            return Response("Cuisine With Same Name Already Exists")
+            serializer = self.get_serializer(cuisine_name)
+            return Response(
+                {
+                    "data": serializer.data,
+                    "message": "Cuisine With Same Name Already Exists",
+                }
+            )
         except Cuisine.DoesNotExist:
             serializer = self.serializer_class(data=cuisine_data)
             if serializer.is_valid(raise_exception=True):
@@ -475,7 +480,7 @@ class OrderView(GenericAPIView):
             try:
                 order = Order.objects.get(orderid=pk)
                 serializer = self.get_serializer(order)
-                return Response(serializer.data)
+                return Response(serializer.data, status=status.HTTP_200_OK)
             except Order.DoesNotExist:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
         else:
@@ -593,12 +598,17 @@ class SubscriptionAPIView(GenericAPIView):
             except Subscription.DoesNotExist:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
         else:
-            child_id = request.data.get("child_id")
-            subscriptions = Subscription.objects.filter(
-                child__Parent=request.user, child=child_id
-            )
-            serializer = self.get_serializer(subscriptions, many=True)
-            return Response(serializer.data)
+            if request.user.is_superuser:
+                subscriptions = Subscription.objects.all()
+                serializer = self.get_serializer(subscriptions, many=True)
+                return Response(serializer.data)
+            else:
+                child_id = request.data.get("child_id")
+                subscriptions = Subscription.objects.filter(
+                    child__Parent=request.user, child=child_id
+                )
+                serializer = self.get_serializer(subscriptions, many=True)
+                return Response(serializer.data)
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)

@@ -57,7 +57,7 @@
                                 },
                                 {
                                     "key": "otp",
-                                    "value": "223173",
+                                    "value": "310610",
                                     "type": "text"
                                 }
                             ]
@@ -92,7 +92,7 @@
                             "bearer": [
                                 {
                                     "key": "token",
-                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzNTU2MjIyLCJpYXQiOjE3MjgzNzIyMjIsImp0aSI6IjczMjczNDc5MGVkOTRkYjE5MWFiNDU1YzA0MWFhMDExIiwidXNlcl9pZCI6Mn0.roFcNBryL0GGjQSAsKmWRQppDQi32MA-jPtDzHq4MZg",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5MzI2OTI2LCJpYXQiOjE3MjkzMjMzMjYsImp0aSI6IjY0MjU3MTNmMzNhNjRjMzU5ZWYwMzdjMmY2MzBiMzk4IiwidXNlcl9pZCI6Mn0.3qlugmaEyOburZc-IbMxtdIOs7IyJjQxA9IsvZ5fbU4",
                                     "type": "string"
                                 }
                             ]
@@ -104,7 +104,7 @@
                             "formdata": [
                                 {
                                     "key": "name",
-                                    "value": "Satish Kumar 1",
+                                    "value": "Satish Kumar2",
                                     "type": "text"
                                 },
                                 {
@@ -146,7 +146,7 @@
                             "bearer": [
                                 {
                                     "key": "token",
-                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMzEzNzUxLCJpYXQiOjE3MjgxMjk3NTEsImp0aSI6IjQyMGY2NDgyNWZjNDQ5ZWQ4MWJlODc2ZmNiOWI3NzRhIiwidXNlcl9pZCI6Mn0.pLLVdzwIyVjSKraJT1nbqWdUTPmezZHQsPuA6zOAnzI",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5MzI2OTI2LCJpYXQiOjE3MjkzMjMzMjYsImp0aSI6IjY0MjU3MTNmMzNhNjRjMzU5ZWYwMzdjMmY2MzBiMzk4IiwidXNlcl9pZCI6Mn0.3qlugmaEyOburZc-IbMxtdIOs7IyJjQxA9IsvZ5fbU4",
                                     "type": "string"
                                 }
                             ]
@@ -158,7 +158,7 @@
                             "formdata": [
                                 {
                                     "key": "Full_Name",
-                                    "value": "child4",
+                                    "value": "childuser2",
                                     "type": "text"
                                 },
                                 {
@@ -173,12 +173,12 @@
                                 },
                                 {
                                     "key": "school_name_id",
-                                    "value": "1",
+                                    "value": "6",
                                     "type": "text"
                                 },
                                 {
                                     "key": "school_area_id",
-                                    "value": "3",
+                                    "value": "1",
                                     "type": "text"
                                 },
                                 {
@@ -212,19 +212,32 @@
                 },
                 {
                     "name": "List Child",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
                     "request": {
                         "auth": {
                             "type": "bearer",
                             "bearer": [
                                 {
                                     "key": "token",
-                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMzEzNzUxLCJpYXQiOjE3MjgxMjk3NTEsImp0aSI6IjQyMGY2NDgyNWZjNDQ5ZWQ4MWJlODc2ZmNiOWI3NzRhIiwidXNlcl9pZCI6Mn0.pLLVdzwIyVjSKraJT1nbqWdUTPmezZHQsPuA6zOAnzI",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5MzI3MTA0LCJpYXQiOjE3MjkyNDY4MDYsImp0aSI6ImY0NzQ2OTBjMjhmOTQ2NjQ5ZTY3OGI0NGZkOGUwODhmIiwidXNlcl9pZCI6MX0.eYFxkISPsNT7piuBJe5k8rcr1Rob-pAqIWglyfmg-hg",
                                     "type": "string"
                                 }
                             ]
                         },
                         "method": "GET",
                         "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "child",
+                                    "value": "6",
+                                    "type": "text"
+                                }
+                            ]
+                        },
                         "url": {
                             "raw": "http://127.0.0.1:8000/viewchild",
                             "protocol": "http",
@@ -250,7 +263,7 @@
                             "bearer": [
                                 {
                                     "key": "token",
-                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMTQ0NzI0LCJpYXQiOjE3Mjc5NjA3MjQsImp0aSI6IjRjNWVkYjk5NWRjZjRiZDE5NDRmNzhhMjdjMWU5N2UzIiwidXNlcl9pZCI6Mn0.FeLMkqNMSOygM-19fg5W0VqgnpIolnMgL0a9OjUq5FE",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5MzI2OTI2LCJpYXQiOjE3MjkzMjMzMjYsImp0aSI6IjY0MjU3MTNmMzNhNjRjMzU5ZWYwMzdjMmY2MzBiMzk4IiwidXNlcl9pZCI6Mn0.3qlugmaEyOburZc-IbMxtdIOs7IyJjQxA9IsvZ5fbU4",
                                     "type": "string"
                                 }
                             ]
@@ -262,13 +275,13 @@
                             "formdata": [
                                 {
                                     "key": "Full_Name",
-                                    "value": "LastChild",
+                                    "value": "Child user2",
                                     "type": "text"
                                 }
                             ]
                         },
                         "url": {
-                            "raw": "http://127.0.0.1:8000/updatechild/4/",
+                            "raw": "http://127.0.0.1:8000/updatechild/6/",
                             "protocol": "http",
                             "host": [
                                 "127",
@@ -279,7 +292,7 @@
                             "port": "8000",
                             "path": [
                                 "updatechild",
-                                "4",
+                                "6",
                                 ""
                             ]
                         }
@@ -294,7 +307,7 @@
                             "bearer": [
                                 {
                                     "key": "token",
-                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMzEzNzUxLCJpYXQiOjE3MjgxMjk3NTEsImp0aSI6IjQyMGY2NDgyNWZjNDQ5ZWQ4MWJlODc2ZmNiOWI3NzRhIiwidXNlcl9pZCI6Mn0.pLLVdzwIyVjSKraJT1nbqWdUTPmezZHQsPuA6zOAnzI",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5MzI3MTA0LCJpYXQiOjE3MjkyNDY4MDYsImp0aSI6ImY0NzQ2OTBjMjhmOTQ2NjQ5ZTY3OGI0NGZkOGUwODhmIiwidXNlcl9pZCI6MX0.eYFxkISPsNT7piuBJe5k8rcr1Rob-pAqIWglyfmg-hg",
                                     "type": "string"
                                 }
                             ]
@@ -328,7 +341,7 @@
                             "bearer": [
                                 {
                                     "key": "token",
-                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMzEzNzUxLCJpYXQiOjE3MjgxMjk3NTEsImp0aSI6IjQyMGY2NDgyNWZjNDQ5ZWQ4MWJlODc2ZmNiOWI3NzRhIiwidXNlcl9pZCI6Mn0.pLLVdzwIyVjSKraJT1nbqWdUTPmezZHQsPuA6zOAnzI",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM0MjQyNjU5LCJpYXQiOjE3MjkwNTg2NTksImp0aSI6IjkzZTNhNDVkODk1ZjQ1NDc4MTMzYTgwZmY5Y2U0OGEyIiwidXNlcl9pZCI6MX0.WTNBTcvUlBaaOVx_SEwdev4A_KpvFbTagfcCChONi2g",
                                     "type": "string"
                                 }
                             ]
@@ -367,7 +380,7 @@
                             "bearer": [
                                 {
                                     "key": "token",
-                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzNjU4OTI1LCJpYXQiOjE3Mjg0NzQ5MjUsImp0aSI6IjIzYjlhMjMxZGNkYTQ5NTg4ZmFlMzQ4ODQ3ZTZhMGJhIiwidXNlcl9pZCI6Mn0.lQK1MnwB583j8JnCjMFJRzqGqqDSrK5g9QerEXMPRUM",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM0MTcxNzkxLCJpYXQiOjE3Mjg5ODc3OTEsImp0aSI6IjY0MTVhNzgyYmQxNTQ1NzQ5NDMzMzViYzM2YTQ4ZjExIiwidXNlcl9pZCI6MX0.eqGGYNpZgqekRTekUFenHmZKXAxEjpG7baMEUv3hfCk",
                                     "type": "string"
                                 }
                             ]
@@ -379,7 +392,7 @@
                             "formdata": [
                                 {
                                     "key": "name",
-                                    "value": "Chinese",
+                                    "value": "South Indian",
                                     "type": "text"
                                 }
                             ]
@@ -409,7 +422,7 @@
                             "bearer": [
                                 {
                                     "key": "token",
-                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzNjU4OTI1LCJpYXQiOjE3Mjg0NzQ5MjUsImp0aSI6IjIzYjlhMjMxZGNkYTQ5NTg4ZmFlMzQ4ODQ3ZTZhMGJhIiwidXNlcl9pZCI6Mn0.lQK1MnwB583j8JnCjMFJRzqGqqDSrK5g9QerEXMPRUM",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM0MzMwOTg2LCJpYXQiOjE3MjkxNDY5ODYsImp0aSI6IjRhNWI3YTlmZWRkMjQxMjU5YjEwZmM0ZTY3NWZhMmYwIiwidXNlcl9pZCI6MX0.WRt67k-Lq8I9f5aKastPAKo3XKyf3d3MgQ4DxxlTgfU",
                                     "type": "string"
                                 }
                             ]
@@ -449,7 +462,7 @@
                         "method": "DELETE",
                         "header": [],
                         "url": {
-                            "raw": "http://127.0.0.1:8000/deletecuisine/2/",
+                            "raw": "http://127.0.0.1:8000/deletecuisine/6/",
                             "protocol": "http",
                             "host": [
                                 "127",
@@ -460,7 +473,7 @@
                             "port": "8000",
                             "path": [
                                 "deletecuisine",
-                                "2",
+                                "6",
                                 ""
                             ]
                         }
@@ -480,7 +493,7 @@
                             "bearer": [
                                 {
                                     "key": "token",
-                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzNjU4OTI1LCJpYXQiOjE3Mjg0NzQ5MjUsImp0aSI6IjIzYjlhMjMxZGNkYTQ5NTg4ZmFlMzQ4ODQ3ZTZhMGJhIiwidXNlcl9pZCI6Mn0.lQK1MnwB583j8JnCjMFJRzqGqqDSrK5g9QerEXMPRUM",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5MzM1MDc3LCJpYXQiOjE3MjkyNDY4MDYsImp0aSI6ImZkZTQzMzExMmY1ZjRiMmE5YWIzNjQ1NmFhMmI4MDU1IiwidXNlcl9pZCI6MX0.2klSLaQ1hm_UBKow1HxaIjeCczBfTyKVWU6D7i4y-d0",
                                     "type": "string"
                                 }
                             ]
@@ -536,7 +549,7 @@
                                 },
                                 {
                                     "key": "menu_id",
-                                    "value": "6",
+                                    "value": "1",
                                     "type": "text"
                                 }
                             ]
@@ -566,7 +579,7 @@
                             "bearer": [
                                 {
                                     "key": "token",
-                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMzEzNzUxLCJpYXQiOjE3MjgxMjk3NTEsImp0aSI6IjQyMGY2NDgyNWZjNDQ5ZWQ4MWJlODc2ZmNiOWI3NzRhIiwidXNlcl9pZCI6Mn0.pLLVdzwIyVjSKraJT1nbqWdUTPmezZHQsPuA6zOAnzI",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5MjQ2NzMzLCJpYXQiOjE3MjkyNDMxMzMsImp0aSI6IjFkMjc3MmNiNmJhMTQ4OGE4OTU1NTM2YjNlYjEwNzYwIiwidXNlcl9pZCI6MX0.umYaWb2zc5wd4eUKQ8IV0CA9ve59xQgruby3RkNvnlo",
                                     "type": "string"
                                 }
                             ]
@@ -574,7 +587,7 @@
                         "method": "GET",
                         "header": [],
                         "url": {
-                            "raw": "http://127.0.0.1:8000/listrating/3/",
+                            "raw": "http://127.0.0.1:8000/listrating/1/",
                             "protocol": "http",
                             "host": [
                                 "127",
@@ -585,7 +598,7 @@
                             "port": "8000",
                             "path": [
                                 "listrating",
-                                "3",
+                                "1",
                                 ""
                             ]
                         }
@@ -643,7 +656,7 @@
                             "bearer": [
                                 {
                                     "key": "token",
-                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzNjU4OTI1LCJpYXQiOjE3Mjg0NzQ5MjUsImp0aSI6IjIzYjlhMjMxZGNkYTQ5NTg4ZmFlMzQ4ODQ3ZTZhMGJhIiwidXNlcl9pZCI6Mn0.lQK1MnwB583j8JnCjMFJRzqGqqDSrK5g9QerEXMPRUM",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM0MTcxNzkxLCJpYXQiOjE3Mjg5ODc3OTEsImp0aSI6IjY0MTVhNzgyYmQxNTQ1NzQ5NDMzMzViYzM2YTQ4ZjExIiwidXNlcl9pZCI6MX0.eqGGYNpZgqekRTekUFenHmZKXAxEjpG7baMEUv3hfCk",
                                     "type": "string"
                                 }
                             ]
@@ -655,17 +668,17 @@
                             "formdata": [
                                 {
                                     "key": "Item_Name",
-                                    "value": "product5",
+                                    "value": "product2",
                                     "type": "text"
                                 },
                                 {
                                     "key": "Item_Image",
                                     "type": "file",
-                                    "src": "/C:/Users/Satish kumar/Downloads/vegetable-2924245_1280.jpg"
+                                    "src": "/C:/Users/Satish kumar/Downloads/pexels-pixabay-247376.jpg"
                                 },
                                 {
                                     "key": "Item_Description",
-                                    "value": "Product2",
+                                    "value": "Product new",
                                     "type": "text"
                                 },
                                 {
@@ -705,7 +718,7 @@
                             "bearer": [
                                 {
                                     "key": "token",
-                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzNjU4OTI1LCJpYXQiOjE3Mjg0NzQ5MjUsImp0aSI6IjIzYjlhMjMxZGNkYTQ5NTg4ZmFlMzQ4ODQ3ZTZhMGJhIiwidXNlcl9pZCI6Mn0.lQK1MnwB583j8JnCjMFJRzqGqqDSrK5g9QerEXMPRUM",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5MjQ2NzMzLCJpYXQiOjE3MjkyNDMxMzMsImp0aSI6IjFkMjc3MmNiNmJhMTQ4OGE4OTU1NTM2YjNlYjEwNzYwIiwidXNlcl9pZCI6MX0.umYaWb2zc5wd4eUKQ8IV0CA9ve59xQgruby3RkNvnlo",
                                     "type": "string"
                                 }
                             ]
@@ -737,7 +750,7 @@
                             "bearer": [
                                 {
                                     "key": "token",
-                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzNjU4OTI1LCJpYXQiOjE3Mjg0NzQ5MjUsImp0aSI6IjIzYjlhMjMxZGNkYTQ5NTg4ZmFlMzQ4ODQ3ZTZhMGJhIiwidXNlcl9pZCI6Mn0.lQK1MnwB583j8JnCjMFJRzqGqqDSrK5g9QerEXMPRUM",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM0MTcxNzkxLCJpYXQiOjE3Mjg5ODc3OTEsImp0aSI6IjY0MTVhNzgyYmQxNTQ1NzQ5NDMzMzViYzM2YTQ4ZjExIiwidXNlcl9pZCI6MX0.eqGGYNpZgqekRTekUFenHmZKXAxEjpG7baMEUv3hfCk",
                                     "type": "string"
                                 }
                             ]
@@ -749,13 +762,13 @@
                             "formdata": [
                                 {
                                     "key": "Item_Name",
-                                    "value": "productfirst",
+                                    "value": "product Second",
                                     "type": "text"
                                 }
                             ]
                         },
                         "url": {
-                            "raw": "http://127.0.0.1:8000/updatemenuitem/1/",
+                            "raw": "http://127.0.0.1:8000/updatemenuitem/2/",
                             "protocol": "http",
                             "host": [
                                 "127",
@@ -766,7 +779,7 @@
                             "port": "8000",
                             "path": [
                                 "updatemenuitem",
-                                "1",
+                                "2",
                                 ""
                             ]
                         }
@@ -815,7 +828,7 @@
                             "bearer": [
                                 {
                                     "key": "token",
-                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMzEzNzUxLCJpYXQiOjE3MjgxMjk3NTEsImp0aSI6IjQyMGY2NDgyNWZjNDQ5ZWQ4MWJlODc2ZmNiOWI3NzRhIiwidXNlcl9pZCI6Mn0.pLLVdzwIyVjSKraJT1nbqWdUTPmezZHQsPuA6zOAnzI",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5MjQ2NzMzLCJpYXQiOjE3MjkyNDMxMzMsImp0aSI6IjFkMjc3MmNiNmJhMTQ4OGE4OTU1NTM2YjNlYjEwNzYwIiwidXNlcl9pZCI6MX0.umYaWb2zc5wd4eUKQ8IV0CA9ve59xQgruby3RkNvnlo",
                                     "type": "string"
                                 }
                             ]
@@ -866,7 +879,7 @@
                             "formdata": [
                                 {
                                     "key": "menu_id",
-                                    "value": "5",
+                                    "value": "2",
                                     "type": "text"
                                 },
                                 {
@@ -876,7 +889,7 @@
                                 },
                                 {
                                     "key": "child_id",
-                                    "value": "1",
+                                    "value": "3",
                                     "type": "text"
                                 }
                             ]
@@ -909,7 +922,7 @@
                             "bearer": [
                                 {
                                     "key": "token",
-                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMzEzNzUxLCJpYXQiOjE3MjgxMjk3NTEsImp0aSI6IjQyMGY2NDgyNWZjNDQ5ZWQ4MWJlODc2ZmNiOWI3NzRhIiwidXNlcl9pZCI6Mn0.pLLVdzwIyVjSKraJT1nbqWdUTPmezZHQsPuA6zOAnzI",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5MjUwNDA2LCJpYXQiOjE3MjkyNDY4MDYsImp0aSI6ImU1YTAzMTFhN2M5ZTQzMGE5ZWQ2OTkyOTlhYjNlNDE4IiwidXNlcl9pZCI6MX0.iktBJl314nfxwSMBKAnE6yk5gjsAmybObYpHk8TqIDU",
                                     "type": "string"
                                 }
                             ]
@@ -921,7 +934,7 @@
                             "formdata": [
                                 {
                                     "key": "child_id",
-                                    "value": "2",
+                                    "value": "3",
                                     "type": "text"
                                 }
                             ]
@@ -964,13 +977,13 @@
                             "formdata": [
                                 {
                                     "key": "Item_Quantity",
-                                    "value": "5",
+                                    "value": "12",
                                     "type": "text"
                                 }
                             ]
                         },
                         "url": {
-                            "raw": "http://127.0.0.1:8000/cartupdate/2/",
+                            "raw": "http://127.0.0.1:8000/cartupdate/1/",
                             "protocol": "http",
                             "host": [
                                 "127",
@@ -981,7 +994,7 @@
                             "port": "8000",
                             "path": [
                                 "cartupdate",
-                                "2",
+                                "1",
                                 ""
                             ]
                         }
@@ -996,7 +1009,7 @@
                             "bearer": [
                                 {
                                     "key": "token",
-                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMjI0MjM1LCJpYXQiOjE3MjgwNDAyMzUsImp0aSI6ImNhOGZjZTVlMDU5ODQzMjg4YzRlZjBiNzIxZGZlOGY5IiwidXNlcl9pZCI6MX0.rqFOSwR1FkEPpbGeJIzwSxqjgYCrz_s6RaVPAoiUXQ4",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5MjUwNDA2LCJpYXQiOjE3MjkyNDY4MDYsImp0aSI6ImU1YTAzMTFhN2M5ZTQzMGE5ZWQ2OTkyOTlhYjNlNDE4IiwidXNlcl9pZCI6MX0.iktBJl314nfxwSMBKAnE6yk5gjsAmybObYpHk8TqIDU",
                                     "type": "string"
                                 }
                             ]
@@ -1004,7 +1017,7 @@
                         "method": "GET",
                         "header": [],
                         "url": {
-                            "raw": "http://127.0.0.1:8000/cartretrieve/2/",
+                            "raw": "http://127.0.0.1:8000/cartretrieve/1/",
                             "protocol": "http",
                             "host": [
                                 "127",
@@ -1015,7 +1028,7 @@
                             "port": "8000",
                             "path": [
                                 "cartretrieve",
-                                "2",
+                                "1",
                                 ""
                             ]
                         }
@@ -1038,7 +1051,7 @@
                         "method": "DELETE",
                         "header": [],
                         "url": {
-                            "raw": "http://127.0.0.1:8000/deletecartitem/6/",
+                            "raw": "http://127.0.0.1:8000/deletecartitem/2/",
                             "protocol": "http",
                             "host": [
                                 "127",
@@ -1049,7 +1062,7 @@
                             "port": "8000",
                             "path": [
                                 "deletecartitem",
-                                "6",
+                                "2",
                                 ""
                             ]
                         }
@@ -1069,7 +1082,7 @@
                             "bearer": [
                                 {
                                     "key": "token",
-                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzNTU2MjIyLCJpYXQiOjE3MjgzNzIyMjIsImp0aSI6IjczMjczNDc5MGVkOTRkYjE5MWFiNDU1YzA0MWFhMDExIiwidXNlcl9pZCI6Mn0.roFcNBryL0GGjQSAsKmWRQppDQi32MA-jPtDzHq4MZg",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5MjUwNDA2LCJpYXQiOjE3MjkyNDY4MDYsImp0aSI6ImU1YTAzMTFhN2M5ZTQzMGE5ZWQ2OTkyOTlhYjNlNDE4IiwidXNlcl9pZCI6MX0.iktBJl314nfxwSMBKAnE6yk5gjsAmybObYpHk8TqIDU",
                                     "type": "string"
                                 }
                             ]
@@ -1081,7 +1094,7 @@
                             "formdata": [
                                 {
                                     "key": "child_id",
-                                    "value": "1",
+                                    "value": "5",
                                     "type": "text"
                                 }
                             ]
@@ -1114,7 +1127,7 @@
                             "bearer": [
                                 {
                                     "key": "token",
-                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzNTU2MjIyLCJpYXQiOjE3MjgzNzIyMjIsImp0aSI6IjczMjczNDc5MGVkOTRkYjE5MWFiNDU1YzA0MWFhMDExIiwidXNlcl9pZCI6Mn0.roFcNBryL0GGjQSAsKmWRQppDQi32MA-jPtDzHq4MZg",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5MjUwNDA2LCJpYXQiOjE3MjkyNDY4MDYsImp0aSI6ImU1YTAzMTFhN2M5ZTQzMGE5ZWQ2OTkyOTlhYjNlNDE4IiwidXNlcl9pZCI6MX0.iktBJl314nfxwSMBKAnE6yk5gjsAmybObYpHk8TqIDU",
                                     "type": "string"
                                 }
                             ]
@@ -1126,13 +1139,13 @@
                             "formdata": [
                                 {
                                     "key": "child_id",
-                                    "value": "1",
+                                    "value": "5",
                                     "type": "text"
                                 }
                             ]
                         },
                         "url": {
-                            "raw": "http://127.0.0.1:8000/order?child_id=1",
+                            "raw": "http://127.0.0.1:8000/order",
                             "protocol": "http",
                             "host": [
                                 "127",
@@ -1143,12 +1156,6 @@
                             "port": "8000",
                             "path": [
                                 "order"
-                            ],
-                            "query": [
-                                {
-                                    "key": "child_id",
-                                    "value": "1"
-                                }
                             ]
                         }
                     },
@@ -1162,7 +1169,7 @@
                             "bearer": [
                                 {
                                     "key": "token",
-                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzNTU2MjIyLCJpYXQiOjE3MjgzNzIyMjIsImp0aSI6IjczMjczNDc5MGVkOTRkYjE5MWFiNDU1YzA0MWFhMDExIiwidXNlcl9pZCI6Mn0.roFcNBryL0GGjQSAsKmWRQppDQi32MA-jPtDzHq4MZg",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5MjUwNDA2LCJpYXQiOjE3MjkyNDY4MDYsImp0aSI6ImU1YTAzMTFhN2M5ZTQzMGE5ZWQ2OTkyOTlhYjNlNDE4IiwidXNlcl9pZCI6MX0.iktBJl314nfxwSMBKAnE6yk5gjsAmybObYpHk8TqIDU",
                                     "type": "string"
                                 }
                             ]
@@ -1180,7 +1187,7 @@
                             ]
                         },
                         "url": {
-                            "raw": "http://127.0.0.1:8000/updateorder/93068f3f-d775-47f1-9ecd-72470f97fa0a/",
+                            "raw": "http://127.0.0.1:8000/updateorder/f6584f45-f6fb-4c16-87bf-f8544ce82202/",
                             "protocol": "http",
                             "host": [
                                 "127",
@@ -1191,7 +1198,7 @@
                             "port": "8000",
                             "path": [
                                 "updateorder",
-                                "93068f3f-d775-47f1-9ecd-72470f97fa0a",
+                                "f6584f45-f6fb-4c16-87bf-f8544ce82202",
                                 ""
                             ]
                         }
@@ -1206,7 +1213,7 @@
                             "bearer": [
                                 {
                                     "key": "token",
-                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzNTU2MjIyLCJpYXQiOjE3MjgzNzIyMjIsImp0aSI6IjczMjczNDc5MGVkOTRkYjE5MWFiNDU1YzA0MWFhMDExIiwidXNlcl9pZCI6Mn0.roFcNBryL0GGjQSAsKmWRQppDQi32MA-jPtDzHq4MZg",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5MjUwNDA2LCJpYXQiOjE3MjkyNDY4MDYsImp0aSI6ImU1YTAzMTFhN2M5ZTQzMGE5ZWQ2OTkyOTlhYjNlNDE4IiwidXNlcl9pZCI6MX0.iktBJl314nfxwSMBKAnE6yk5gjsAmybObYpHk8TqIDU",
                                     "type": "string"
                                 }
                             ]
@@ -1214,7 +1221,7 @@
                         "method": "GET",
                         "header": [],
                         "url": {
-                            "raw": "http://127.0.0.1:8000/updateorder/93068f3f-d775-47f1-9ecd-72470f97fa0a/",
+                            "raw": "http://127.0.0.1:8000/updateorder/f6584f45-f6fb-4c16-87bf-f8544ce82202/",
                             "protocol": "http",
                             "host": [
                                 "127",
@@ -1225,7 +1232,7 @@
                             "port": "8000",
                             "path": [
                                 "updateorder",
-                                "93068f3f-d775-47f1-9ecd-72470f97fa0a",
+                                "f6584f45-f6fb-4c16-87bf-f8544ce82202",
                                 ""
                             ]
                         }
@@ -1245,7 +1252,7 @@
                             "bearer": [
                                 {
                                     "key": "token",
-                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzNjU0NjM0LCJpYXQiOjE3Mjg0NzA2MzQsImp0aSI6ImE0MjdmOTgxMzZkOTQ2NjViOThkM2JlZGUwODVhNzJmIiwidXNlcl9pZCI6MX0.rmvpDoW2LZV8VrPEgxhVz1cfTG-rn6zuZaBkluc8Vqo",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5MjUwNDA2LCJpYXQiOjE3MjkyNDY4MDYsImp0aSI6ImU1YTAzMTFhN2M5ZTQzMGE5ZWQ2OTkyOTlhYjNlNDE4IiwidXNlcl9pZCI6MX0.iktBJl314nfxwSMBKAnE6yk5gjsAmybObYpHk8TqIDU",
                                     "type": "string"
                                 }
                             ]
@@ -1262,7 +1269,7 @@
                                 },
                                 {
                                     "key": "Plan_Type",
-                                    "value": "Monthly",
+                                    "value": "Weekly",
                                     "type": "text"
                                 },
                                 {
@@ -1297,7 +1304,7 @@
                             "bearer": [
                                 {
                                     "key": "token",
-                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzNTU2MjIyLCJpYXQiOjE3MjgzNzIyMjIsImp0aSI6IjczMjczNDc5MGVkOTRkYjE5MWFiNDU1YzA0MWFhMDExIiwidXNlcl9pZCI6Mn0.roFcNBryL0GGjQSAsKmWRQppDQi32MA-jPtDzHq4MZg",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5MjUwNDA2LCJpYXQiOjE3MjkyNDY4MDYsImp0aSI6ImU1YTAzMTFhN2M5ZTQzMGE5ZWQ2OTkyOTlhYjNlNDE4IiwidXNlcl9pZCI6MX0.iktBJl314nfxwSMBKAnE6yk5gjsAmybObYpHk8TqIDU",
                                     "type": "string"
                                 }
                             ]
@@ -1305,7 +1312,7 @@
                         "method": "GET",
                         "header": [],
                         "url": {
-                            "raw": "http://127.0.0.1:8000/retrieveplan/2/",
+                            "raw": "http://127.0.0.1:8000/viewplan",
                             "protocol": "http",
                             "host": [
                                 "127",
@@ -1315,9 +1322,7 @@
                             ],
                             "port": "8000",
                             "path": [
-                                "retrieveplan",
-                                "2",
-                                ""
+                                "viewplan"
                             ]
                         }
                     },
@@ -1331,7 +1336,7 @@
                             "bearer": [
                                 {
                                     "key": "token",
-                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzNTU2MjIyLCJpYXQiOjE3MjgzNzIyMjIsImp0aSI6IjczMjczNDc5MGVkOTRkYjE5MWFiNDU1YzA0MWFhMDExIiwidXNlcl9pZCI6Mn0.roFcNBryL0GGjQSAsKmWRQppDQi32MA-jPtDzHq4MZg",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5MjUwNDA2LCJpYXQiOjE3MjkyNDY4MDYsImp0aSI6ImU1YTAzMTFhN2M5ZTQzMGE5ZWQ2OTkyOTlhYjNlNDE4IiwidXNlcl9pZCI6MX0.iktBJl314nfxwSMBKAnE6yk5gjsAmybObYpHk8TqIDU",
                                     "type": "string"
                                 }
                             ]
@@ -1377,13 +1382,13 @@
                             "formdata": [
                                 {
                                     "key": "Plan_Charges",
-                                    "value": "599",
+                                    "value": "1999",
                                     "type": "text"
                                 }
                             ]
                         },
                         "url": {
-                            "raw": "http://127.0.0.1:8000/updateplan/2/",
+                            "raw": "http://127.0.0.1:8000/updateplan/1/",
                             "protocol": "http",
                             "host": [
                                 "127",
@@ -1394,7 +1399,7 @@
                             "port": "8000",
                             "path": [
                                 "updateplan",
-                                "2",
+                                "1",
                                 ""
                             ]
                         }
@@ -1417,7 +1422,7 @@
                         "method": "DELETE",
                         "header": [],
                         "url": {
-                            "raw": "http://127.0.0.1:8000/deleteplan/2/",
+                            "raw": "http://127.0.0.1:8000/deleteplan/5/",
                             "protocol": "http",
                             "host": [
                                 "127",
@@ -1428,7 +1433,7 @@
                             "port": "8000",
                             "path": [
                                 "deleteplan",
-                                "2",
+                                "5",
                                 ""
                             ]
                         }
@@ -1448,7 +1453,7 @@
                             "bearer": [
                                 {
                                     "key": "token",
-                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMzEzNzUxLCJpYXQiOjE3MjgxMjk3NTEsImp0aSI6IjQyMGY2NDgyNWZjNDQ5ZWQ4MWJlODc2ZmNiOWI3NzRhIiwidXNlcl9pZCI6Mn0.pLLVdzwIyVjSKraJT1nbqWdUTPmezZHQsPuA6zOAnzI",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5MjUwNDA2LCJpYXQiOjE3MjkyNDY4MDYsImp0aSI6ImU1YTAzMTFhN2M5ZTQzMGE5ZWQ2OTkyOTlhYjNlNDE4IiwidXNlcl9pZCI6MX0.iktBJl314nfxwSMBKAnE6yk5gjsAmybObYpHk8TqIDU",
                                     "type": "string"
                                 }
                             ]
@@ -1460,12 +1465,12 @@
                             "formdata": [
                                 {
                                     "key": "plan_id",
-                                    "value": "4",
+                                    "value": "2",
                                     "type": "text"
                                 },
                                 {
                                     "key": "child",
-                                    "value": "5",
+                                    "value": "3",
                                     "type": "text"
                                 }
                             ]
@@ -1498,7 +1503,7 @@
                             "bearer": [
                                 {
                                     "key": "token",
-                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMzEzNzUxLCJpYXQiOjE3MjgxMjk3NTEsImp0aSI6IjQyMGY2NDgyNWZjNDQ5ZWQ4MWJlODc2ZmNiOWI3NzRhIiwidXNlcl9pZCI6Mn0.pLLVdzwIyVjSKraJT1nbqWdUTPmezZHQsPuA6zOAnzI",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5MjUwNDA2LCJpYXQiOjE3MjkyNDY4MDYsImp0aSI6ImU1YTAzMTFhN2M5ZTQzMGE5ZWQ2OTkyOTlhYjNlNDE4IiwidXNlcl9pZCI6MX0.iktBJl314nfxwSMBKAnE6yk5gjsAmybObYpHk8TqIDU",
                                     "type": "string"
                                 }
                             ]
@@ -1510,7 +1515,7 @@
                             "formdata": [
                                 {
                                     "key": "child_id",
-                                    "value": "5",
+                                    "value": "3",
                                     "type": "text"
                                 }
                             ]
@@ -1545,7 +1550,7 @@
                             "bearer": [
                                 {
                                     "key": "token",
-                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMzMzEzNzUxLCJpYXQiOjE3MjgxMjk3NTEsImp0aSI6IjQyMGY2NDgyNWZjNDQ5ZWQ4MWJlODc2ZmNiOWI3NzRhIiwidXNlcl9pZCI6Mn0.pLLVdzwIyVjSKraJT1nbqWdUTPmezZHQsPuA6zOAnzI",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5MjUwNDA2LCJpYXQiOjE3MjkyNDY4MDYsImp0aSI6ImU1YTAzMTFhN2M5ZTQzMGE5ZWQ2OTkyOTlhYjNlNDE4IiwidXNlcl9pZCI6MX0.iktBJl314nfxwSMBKAnE6yk5gjsAmybObYpHk8TqIDU",
                                     "type": "string"
                                 }
                             ]
@@ -1657,7 +1662,7 @@
                             "bearer": [
                                 {
                                     "key": "token",
-                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM0MDg4MzczLCJpYXQiOjE3Mjg5MDQzNzMsImp0aSI6ImFjMmIzMjgyNTUxOTRjYTQ4MzQzN2EzZTIzYzc2ODRhIiwidXNlcl9pZCI6Mn0.QqpXWcq1t1aq7xbj3hp16oURC3nJ4V6JsPM8Z5Az7a0",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5MjUwNDA2LCJpYXQiOjE3MjkyNDY4MDYsImp0aSI6ImU1YTAzMTFhN2M5ZTQzMGE5ZWQ2OTkyOTlhYjNlNDE4IiwidXNlcl9pZCI6MX0.iktBJl314nfxwSMBKAnE6yk5gjsAmybObYpHk8TqIDU",
                                     "type": "string"
                                 }
                             ]
@@ -1669,7 +1674,7 @@
                             "formdata": [
                                 {
                                     "key": "child_id",
-                                    "value": "1",
+                                    "value": "3",
                                     "type": "text"
                                 }
                             ]
@@ -1694,6 +1699,745 @@
             ]
         },
         {
+            "name": "School",
+            "item": [
+                {
+                    "name": "ListSchool",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5MjUwNDA2LCJpYXQiOjE3MjkyNDY4MDYsImp0aSI6ImU1YTAzMTFhN2M5ZTQzMGE5ZWQ2OTkyOTlhYjNlNDE4IiwidXNlcl9pZCI6MX0.iktBJl314nfxwSMBKAnE6yk5gjsAmybObYpHk8TqIDU",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/listschoolname",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "listschoolname"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Add School",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5MjUwNDA2LCJpYXQiOjE3MjkyNDY4MDYsImp0aSI6ImU1YTAzMTFhN2M5ZTQzMGE5ZWQ2OTkyOTlhYjNlNDE4IiwidXNlcl9pZCI6MX0.iktBJl314nfxwSMBKAnE6yk5gjsAmybObYpHk8TqIDU",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "schoolName",
+                                    "value": "School4",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "School_Contact_Number",
+                                    "value": "7788994452",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "School_Address",
+                                    "value": "Address line1, new 3",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "School_Timing",
+                                    "value": "10AM - 4PM",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/addschool",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "addschool"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Update School",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5MTYyMjc4LCJpYXQiOjE3MjkxNTg2NzgsImp0aSI6ImY0NjNjNDlkOWY2MzRmNjRiNDQyNDc5YmExNjhmNTNkIiwidXNlcl9pZCI6MX0.PxAcNSlpiFosakOSnCEDzD6M3c8c5JZ9GPnWY1YQkng",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "schoolName",
+                                    "value": "School first",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/updateschool/3/",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "updateschool",
+                                "3",
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Delete School",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5MTYyMjc4LCJpYXQiOjE3MjkxNTg2NzgsImp0aSI6ImY0NjNjNDlkOWY2MzRmNjRiNDQyNDc5YmExNjhmNTNkIiwidXNlcl9pZCI6MX0.PxAcNSlpiFosakOSnCEDzD6M3c8c5JZ9GPnWY1YQkng",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/deleteschool/3/",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "deleteschool",
+                                "3",
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Agent",
+            "item": [
+                {
+                    "name": "List Agent",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5MTY2ODQ0LCJpYXQiOjE3MjkxNjMyNDQsImp0aSI6IjcwYmMxYTM2MmZlNjQyMGQ4NTk0NzFlNzRhY2MxMzNkIiwidXNlcl9pZCI6MX0.u4pIiAoMtcOdf7_IDffmfVhL7bNOOe-4kpB7EvfbqPQ",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/listagent",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "listagent"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Add Agent",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5MTY2ODQ0LCJpYXQiOjE3MjkxNjMyNDQsImp0aSI6IjcwYmMxYTM2MmZlNjQyMGQ4NTk0NzFlNzRhY2MxMzNkIiwidXNlcl9pZCI6MX0.u4pIiAoMtcOdf7_IDffmfVhL7bNOOe-4kpB7EvfbqPQ",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "Name",
+                                    "value": "Agent2",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "Contact_Number",
+                                    "value": "7788554466",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "User_Id",
+                                    "value": "Agent2@123",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "Password",
+                                    "value": "Agent2@123",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "Government_Id",
+                                    "type": "file",
+                                    "src": "/C:/Users/Satish kumar/Downloads/IMG_1556.jpg"
+                                },
+                                {
+                                    "key": "Address",
+                                    "value": "Address2",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/addagent",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "addagent"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Update Agent",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5MTY2ODQ0LCJpYXQiOjE3MjkxNjMyNDQsImp0aSI6IjcwYmMxYTM2MmZlNjQyMGQ4NTk0NzFlNzRhY2MxMzNkIiwidXNlcl9pZCI6MX0.u4pIiAoMtcOdf7_IDffmfVhL7bNOOe-4kpB7EvfbqPQ",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": []
+                        },
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/updateagent/1/",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "updateagent",
+                                "1",
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Delete Agent",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5MTY2ODQ0LCJpYXQiOjE3MjkxNjMyNDQsImp0aSI6IjcwYmMxYTM2MmZlNjQyMGQ4NTk0NzFlNzRhY2MxMzNkIiwidXNlcl9pZCI6MX0.u4pIiAoMtcOdf7_IDffmfVhL7bNOOe-4kpB7EvfbqPQ",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/deleteagent/1/",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "deleteagent",
+                                "1",
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Delivery Cluster",
+            "item": [
+                {
+                    "name": "Create Cluster",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5MTc1NDExLCJpYXQiOjE3MjkxNzE4MTEsImp0aSI6ImEyMWNlY2VmNzdlMDQ4NTI5ZWM5YWNmODQwODk0Y2U3IiwidXNlcl9pZCI6MX0.P-45Wj1oxAObjy9Ucv_2iSxO07x7Z_rpHMyEykl2BLw",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"Cluster_Name\": \"Cluster3\",\r\n    \"School_id\": [4,5],\r\n    \"Agent_id\": 3\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/createcluster",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "createcluster"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "List Cluster",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5MjM5MzY3LCJpYXQiOjE3MjkyMzU3NjcsImp0aSI6IjM4ZmZiYWY3NDVjMzRmZTU4MWEwYmJjZTZiOTk0ZmE4IiwidXNlcl9pZCI6MX0.XD8PgZmUqVOSVWoDTPg9BM8rXhid88G2WwgTf9eJouk",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/listcluster",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "listcluster"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Add  and Remove School in Cluster",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5MjM5MzY3LCJpYXQiOjE3MjkyMzU3NjcsImp0aSI6IjM4ZmZiYWY3NDVjMzRmZTU4MWEwYmJjZTZiOTk0ZmE4IiwidXNlcl9pZCI6MX0.XD8PgZmUqVOSVWoDTPg9BM8rXhid88G2WwgTf9eJouk",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "PATCH",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "school_id",
+                                    "value": "6",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "flag",
+                                    "value": "add",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/updatecluster/1/",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "updatecluster",
+                                "1",
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "DeleteCluster",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5MjM5MzY3LCJpYXQiOjE3MjkyMzU3NjcsImp0aSI6IjM4ZmZiYWY3NDVjMzRmZTU4MWEwYmJjZTZiOTk0ZmE4IiwidXNlcl9pZCI6MX0.XD8PgZmUqVOSVWoDTPg9BM8rXhid88G2WwgTf9eJouk",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/deletecluster/8/",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "deletecluster",
+                                "8",
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "UpdateDeliveryCluster",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5MjM5MzY3LCJpYXQiOjE3MjkyMzU3NjcsImp0aSI6IjM4ZmZiYWY3NDVjMzRmZTU4MWEwYmJjZTZiOTk0ZmE4IiwidXNlcl9pZCI6MX0.XD8PgZmUqVOSVWoDTPg9BM8rXhid88G2WwgTf9eJouk",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "Cluster_Name",
+                                    "value": "Cluster One",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/Updatecluster/1/",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "Updatecluster",
+                                "1",
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "OrderMenuDetails",
+            "item": [
+                {
+                    "name": "OrderMenuDetails",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5MjUwNDA2LCJpYXQiOjE3MjkyNDY4MDYsImp0aSI6ImU1YTAzMTFhN2M5ZTQzMGE5ZWQ2OTkyOTlhYjNlNDE4IiwidXNlcl9pZCI6MX0.iktBJl314nfxwSMBKAnE6yk5gjsAmybObYpHk8TqIDU",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/ordermenudetail",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "ordermenudetail"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "User Management",
+            "item": [
+                {
+                    "name": "ViewUser",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5MjU0NjMzLCJpYXQiOjE3MjkyNDY4MDYsImp0aSI6IjViZWY0OTYyMzU5YzQ3ODdiYjA0NWEzMzE5NmZjMjQ5IiwidXNlcl9pZCI6MX0.VftZv7Z47RmvEPsTeNBZrmUEzyoS3S3CxaZtwmXidTk",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/viewuser/1/",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "viewuser",
+                                "1",
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "ListUser with Child",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5MzI0NTU1LCJpYXQiOjE3MjkyNDY4MDYsImp0aSI6ImNiMmEyYjkyYjJmNjRmYTk4ODg5ZjIyYWY1NGYzOGI5IiwidXNlcl9pZCI6MX0.Sihh47klK5XQhEafn8FX4EGzcOb9NRypWFwI_4wrmsQ",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/listuser",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "listuser"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "UpdateUser",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5MjU0NjMzLCJpYXQiOjE3MjkyNDY4MDYsImp0aSI6IjViZWY0OTYyMzU5YzQ3ODdiYjA0NWEzMzE5NmZjMjQ5IiwidXNlcl9pZCI6MX0.VftZv7Z47RmvEPsTeNBZrmUEzyoS3S3CxaZtwmXidTk",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "PUT",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "email",
+                                    "value": "2019kumarsatish2019@gmail.com",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/updateuser/1/",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "updateuser",
+                                "1",
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "DeleteUser",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI5MjU0NjMzLCJpYXQiOjE3MjkyNDY4MDYsImp0aSI6IjViZWY0OTYyMzU5YzQ3ODdiYjA0NWEzMzE5NmZjMjQ5IiwidXNlcl9pZCI6MX0.VftZv7Z47RmvEPsTeNBZrmUEzyoS3S3CxaZtwmXidTk",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/deleteuser/1/",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "8000",
+                            "path": [
+                                "deleteuser",
+                                "1",
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
             "name": "getToken",
             "request": {
                 "method": "POST",
@@ -1703,12 +2447,12 @@
                     "formdata": [
                         {
                             "key": "email",
-                            "value": "2019kumarsatish2019@gmail.com",
+                            "value": "dataplayer1097@gmail.com",
                             "type": "text"
                         },
                         {
                             "key": "password",
-                            "value": "122",
+                            "value": "123",
                             "type": "text"
                         }
                     ]
@@ -1727,6 +2471,83 @@
                         "api",
                         "token",
                         ""
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Refresh Token",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [
+                        {
+                            "key": "refresh",
+                            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcyOTIzNjI2MSwiaWF0IjoxNzI5MTQ5ODYxLCJqdGkiOiIzYTM1MTRlM2E4ODI0MWEwYWE4NzNlMjY3NjE1MjM0ZiIsInVzZXJfaWQiOjF9.XiNdrG1PTgo3MNXmnQNxCwUbPE1sAGgWZUP89tZJjkU",
+                            "type": "text"
+                        }
+                    ]
+                },
+                "url": {
+                    "raw": "http://127.0.0.1:8000/api/token/refresh/",
+                    "protocol": "http",
+                    "host": [
+                        "127",
+                        "0",
+                        "0",
+                        "1"
+                    ],
+                    "port": "8000",
+                    "path": [
+                        "api",
+                        "token",
+                        "refresh",
+                        ""
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Logout User",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM0MzMxNDM2LCJpYXQiOjE3MjkxNDc0MzYsImp0aSI6IjZmMzI1YTZkOGZmOTQ0OWFiZTM2NmMzZTNlYjNkYTI1IiwidXNlcl9pZCI6MX0.V26OFFcBtz7LOwCOJ9LJwqTI6YESkDNgU3-FY6mtd7o",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [
+                        {
+                            "key": "refresh_token",
+                            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcyOTIzMzgzNiwiaWF0IjoxNzI5MTQ3NDM2LCJqdGkiOiI2ODE2ZDEwODhmMDk0ODBjOGM5ZTQ1MzJkNDExMGQzZiIsInVzZXJfaWQiOjF9.DXNewet9P42BIDkR806UKElL9UePbSKlv3oLqnMKsEI",
+                            "type": "text"
+                        }
+                    ]
+                },
+                "url": {
+                    "raw": "http://127.0.0.1:8000/logoutuser",
+                    "protocol": "http",
+                    "host": [
+                        "127",
+                        "0",
+                        "0",
+                        "1"
+                    ],
+                    "port": "8000",
+                    "path": [
+                        "logoutuser"
                     ]
                 }
             },
