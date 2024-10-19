@@ -87,4 +87,9 @@ urlpatterns = [
     path("viewuser/<int:pk>/", UserManagementAPIView.as_view(), name="viewuser"),
     path("updateuser/<int:pk>/", UserManagementAPIView.as_view(), name="updateuser"),
     path("deleteuser/<int:pk>/", UserManagementAPIView.as_view(), name="deleteuser"),
+    path(
+        "updateuserchild/<int:pk>/",
+        UserManagementAPIView.as_view(),
+        name="updateuserchild",
+    ),
 ]

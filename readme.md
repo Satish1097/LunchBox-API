@@ -111,6 +111,39 @@ paymentHandler:- It verifies the signature and captures the payment after paymen
     
 14.Transaction:- 
 View Transaction:-User can see the transaction Detail for selected child
+All the API’s mentioned bellow are only accessed by the Admin.
+
+
+15.School Management:-
+
+Add School
+Update School Detail
+List School
+Retrieve School
+Delete School
+
+
+16.Delivery Agent:-
+
+Add Agent
+List Agent
+Update Agent
+Delete Agent
+
+17.Delivery Cluster :-
+
+Create Delivery Cluster
+Add School in Cluster
+Remove School from Cluster
+Delete Cluster
+Update Delivery Cluster
+
+18.Order Menu Details:-
+
+Order menu details:- by using this api endpoint admin can view the daily order menuItems and quantity to be prepared.
+
+19. User Management:-
+
 
 
 

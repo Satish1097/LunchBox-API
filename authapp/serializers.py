@@ -65,9 +65,15 @@ class ChildSerializer(serializers.ModelSerializer):
         return child
 
 
-class UserChildSerializer(serializers.Serializer):
-    user = UserSerializer()
-    children = ChildSerializer(many=True, source="child")
+class UserChildSerializer(serializers.ModelSerializer):
+    child = ChildSerializer(many=True, read_only=True)
+    child_id = serializers.PrimaryKeyRelatedField(
+        queryset=Child.objects.all(), many=True, write_only=True
+    )
+
+    class Meta:
+        model = User
+        fields = ["name", "email", "mobile", "child_id", "child"]
 
 
 class CuisineSerializer(serializers.ModelSerializer):

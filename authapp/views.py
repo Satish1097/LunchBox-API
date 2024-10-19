@@ -30,9 +30,9 @@ load_dotenv()
 class SendOTPView(generics.CreateAPIView):
     permission_classes = [AllowAny]
 
-    def create(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         mobile_number = request.data.get("mobile_number")
-        # Generate a new secret key and TOTP instance
+        # Generate a new secret key and Time based OTP instance
         secret_key = pyotp.random_base32()  # Base32-encoded secret key
         totp = pyotp.TOTP(secret_key, interval=120)
         # Generate a 6-digit OTP
@@ -63,7 +63,7 @@ class SendOTPView(generics.CreateAPIView):
 class VerifyOTPView(generics.CreateAPIView):
     permission_classes = [AllowAny]
 
-    def create(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         mobile_number = request.data.get("mobile_number")
         user_otp = request.data.get("otp")
 
@@ -78,7 +78,9 @@ class VerifyOTPView(generics.CreateAPIView):
         if otp_record:
             totp = pyotp.TOTP(otp_record.secret_key, interval=120)
 
-            if totp.verify(user_otp, valid_window=1):
+            if totp.verify(
+                user_otp, valid_window=1
+            ):  # valid window add 30 second before and after in actual time to validate the otp
                 user, _ = User.objects.get_or_create(mobile=mobile_number)
                 user.is_verified = True
                 user.save()
@@ -113,12 +115,6 @@ class UserPersonalDetailAPIView(GenericAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     lookup_field = "mobile"
-
-    def get_permissions(self):
-        if self.request.method == "DELETE":
-            return [IsAdminUser()]
-        else:
-            return [IsAuthenticated()]
 
     def put(self, request, **kwargs):
         instance = self.get_object()
@@ -168,8 +164,15 @@ class ChildAPIView(GenericAPIView):
     def get(self, request, *args, **kwargs):
         pk = self.kwargs.get("pk")
         user = request.user
-        print(user)
-        if pk and user is not None:
+
+        if pk and user.is_superuser:
+            try:
+                child = Child.objects.get(id=pk)
+                serializer = self.get_serializer(child)
+                return Response(serializer.data)
+            except Child.DoesNotExist:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+        elif pk:
             try:
                 child = Child.objects.get(id=pk, Parent=user)
                 serializer = self.get_serializer(child)
@@ -179,15 +182,20 @@ class ChildAPIView(GenericAPIView):
                     "Record does not exist", status=status.HTTP_404_NOT_FOUND
                 )
         else:
-            children = Child.objects.filter(Parent=user.id)
-            serializer = self.get_serializer(children, many=True)
-            return Response(serializer.data)
+            if user.is_superuser:
+                children = Child.objects.all()
+                serializer = self.get_serializer(children, many=True)
+                return Response(serializer.data)
+            else:
+                children = Child.objects.filter(Parent=user.id)
+                serializer = self.get_serializer(children, many=True)
+                return Response(serializer.data)
 
     def put(self, request, *args, **kwargs):
         instance = self.get_object()
         serializer = self.get_serializer(instance, data=request.data, partial=True)
         if serializer.is_valid():
-            if instance.Parent == request.user:
+            if instance.Parent == request.user or request.user.is_superuser:
                 serializer.save()
                 return Response(
                     {"data": serializer.data, "success": "Details added successfully"}
@@ -200,7 +208,7 @@ class ChildAPIView(GenericAPIView):
     def delete(self, request, **kwargs):
         user = request.user
         instance = self.get_object()
-        if instance.Parent == user:
+        if instance.Parent == user or user.is_superuser:
             serializer = self.get_serializer(instance)
             instance.delete()
             return Response(
@@ -347,14 +355,23 @@ class RatingAPIView(GenericAPIView):
 
     def delete(self, request, **kwargs):
         pk = self.kwargs.get("pk")
-        if pk:
+        user = request.user
+        if pk and user:
             try:
-                rating = Rating.objects.get(id=pk)
-                rating.delete()
-                return Response(
-                    {"success": "Object deleted successfully"},
-                    status=status.HTTP_204_NO_CONTENT,
-                )
+                if user.is_superuser:
+                    rating = Rating.objects.get(id=pk)
+                    rating.delete()
+                    return Response(
+                        {"success": "Object deleted successfully"},
+                        status=status.HTTP_204_NO_CONTENT,
+                    )
+                else:
+                    rating = Rating.objects.get(user=user, id=pk)
+                    rating.delete()
+                    return Response(
+                        {"success": "Object deleted successfully"},
+                        status=status.HTTP_204_NO_CONTENT,
+                    )
             except Rating.DoesNotExist:
                 return Response(
                     {"Error": "Object Not Found"},
@@ -971,8 +988,8 @@ class UserManagementAPIView(GenericAPIView):
         pk = self.kwargs.get("pk")
         if pk:
             try:
-                user = User.objects.get(id=pk)
-                serializer = self.get_serializer(user)
+                user = User.objects.prefetch_related("child").get(id=pk)
+                serializer = UserChildSerializer(user)
                 return Response(serializer.data)
             except User.DoesNotExist:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
@@ -980,6 +997,30 @@ class UserManagementAPIView(GenericAPIView):
             users = User.objects.prefetch_related("child")
             serializer = UserChildSerializer(users, many=True)
             return Response(serializer.data)
+
+    # def put(self, request, *args, **kwargs):
+    #     pk = self.kwargs.get("pk")
+    #     try:
+    #         user = User.objects.get(pk=pk)
+    #         serializer = UserChildSerializer(user, data=request.data, partial=False)
+    #         if serializer.is_valid():
+    #             serializer.save()
+    #             return Response(serializer.data)
+    #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    #     except User.DoesNotExist:
+    #         return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    # def patch(self, request, *args, **kwargs):
+    #     pk = self.kwargs.get("pk")
+    #     try:
+    #         user = User.objects.prefetch_related("child").get(pk=pk)
+    #         serializer = UserChildSerializer(user, data=request.data, partial=True)
+    #         if serializer.is_valid():
+    #             serializer.save()
+    #             return Response(serializer.data)
+    #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    #     except User.DoesNotExist:
+    #         return Response(status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request, *args, **kwargs):
         instance = self.get_object()
